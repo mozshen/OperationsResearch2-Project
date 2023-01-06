@@ -21,6 +21,8 @@
  
  float prodprice= ...;
  float startinventory= ...;
+ float endinventory= ...;
+ float inventoryunitcost= ...;
  
  /*decision variebles*/
  
@@ -31,6 +33,8 @@
  
  dvar float+ IX[veg][month];
  dvar float+ IY[oil][month];
+ 
+ /* objective variebles*/
  
  dvar float Revenue;
  dvar float MaterialCost;
@@ -53,28 +57,33 @@ subject to {
     sum(i in oil) RY[i][t]<= 200;
   
   /*charachtristic limit*/
+  /*upper limit*/
   forall (t in month)
   	sum(i in veg) charveg[i]* RX[i][t]+ sum(i in oil) charoil[i]* RY[i][t]-
   	6* (sum(i in veg) RX[i][t]+ sum(i in oil) RY[i][t])<= 0;
-  	
+  
+  /*lower limit*/
   forall (t in month)
   	sum(i in veg) charveg[i]* RX[i][t]+ sum(i in oil) charoil[i]* RY[i][t]-
   	3* (sum(i in veg) RX[i][t]+ sum(i in oil) RY[i][t])>= 0;
   
   /*inventory*/
-  	
+  
+  /*starinventory*/
   forall (i in veg)
 	IX[i][1]== startinventory+ BX[i][1]- RX[i][1];    
   
   forall (i in oil)
 	IY[i][1]== startinventory+ BY[i][1]- RY[i][1];    
   
+  /*endinventory*/
   forall (i in veg)
 	IX[i][6]== 500;    
   
   forall (i in oil)
 	IY[i][6]== 500;    
   
+  /*inventory relationshib with buying and refinement*/
   forall (t in month, i in veg)
     if (t> 1)
 		IX[i][t]== IX[i][t-1]+ BX[i][t]- RX[i][t];    
@@ -82,13 +91,15 @@ subject to {
   forall (t in month, i in oil)
     if (t> 1)
 		IY[i][t]== IY[i][t-1]+ BY[i][t]- RY[i][t];    
-    
+   
+  /*inventory limit*/  
   forall (t in month, i in veg)
   	IX[i][t]<=1000;
   	
   forall (t in month, i in oil)
   	IY[i][t]<=1000;
   
+  /*refinement if we have inventory*/
   forall (t in month, i in veg)
   	RX[i][t]<=IX[i][t];
   
@@ -96,7 +107,7 @@ subject to {
   	RY[i][t]<=IY[i][t];
   
   
-  
+  /*final objective variebles*/
   Revenue== prodprice* sum(i in veg, t in month) RX[i][t]+
 			prodprice* sum(i in oil, t in month) RY[i][t];
 
