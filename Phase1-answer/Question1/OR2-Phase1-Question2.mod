@@ -32,16 +32,16 @@
  dvar float+ IX[veg][month];
  dvar float+ IY[oil][month];
  
- /*opjective*/
+ dvar float Revenue;
+ dvar float MaterialCost;
+ dvar float InventoryCost;
  
- maximize prodprice* sum(i in veg, t in month) RX[i][t]+
-			prodprice* sum(i in oil, t in month) RY[i][t]-
-			sum(i in veg, t in month) vegprice[i][t]* BX[i][t]-
-			sum(i in oil, t in month) oilprice[i][t]* BY[i][t]-
-			5* sum(i in veg, t in month) IX[i][t]- 
-			5* sum(i in oil, t in month) IY[i][t];
-			
-/*constraints*/
+ dvar float Profit;
+ 
+ /*opjective*/
+ maximize Profit;
+ 
+ /*constraints*/
 
 subject to {
   
@@ -69,6 +69,11 @@ subject to {
   forall (i in oil)
 	IY[i][1]== startinventory+ BY[i][1]- RY[i][1];    
   
+  forall (i in veg)
+	IX[i][6]== 500;    
+  
+  forall (i in oil)
+	IY[i][6]== 500;    
   
   forall (t in month, i in veg)
     if (t> 1)
@@ -89,6 +94,19 @@ subject to {
   
   forall (t in month, i in oil)
   	RY[i][t]<=IY[i][t];
+  
+  
+  
+  Revenue== prodprice* sum(i in veg, t in month) RX[i][t]+
+			prodprice* sum(i in oil, t in month) RY[i][t];
+
+  MaterialCost== sum(i in veg, t in month) vegprice[i][t]* BX[i][t]+
+			sum(i in oil, t in month) oilprice[i][t]* BY[i][t];
+
+  InventoryCost== 5* sum(i in veg, t in month) IX[i][t]+
+			5* sum(i in oil, t in month) IY[i][t];
+  
+  Profit== Revenue- MaterialCost- InventoryCost;
   
   }
  
