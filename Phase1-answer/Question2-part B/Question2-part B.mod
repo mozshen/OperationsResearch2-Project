@@ -135,9 +135,12 @@ subject to {
   forall (t in month, i in oil)
   	RY[i][t]>=minusage* UY[i][t];
   
-  /*3oil, if 1, 3 of veg*/
+  /*3oil, if 1 or 2 of veg*/
   forall (t in month)
-  	(UX[1][t]+ UX[2][t])- 1<= UY[3][t];
+  	UX[1][t]<= UY[3][t];
+  
+  forall (t in month)
+  	UX[2][t]<= UY[3][t];
   
   /*final objective variebles*/
   Revenue== prodprice* sum(i in veg, t in month) RX[i][t]+
