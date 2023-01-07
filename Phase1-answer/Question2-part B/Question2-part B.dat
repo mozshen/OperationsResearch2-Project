@@ -1,12 +1,13 @@
 /*********************************************
  * OPL 22.1.0.0 Data
  * Author: LENOVO
- * Creation Date: Jan 6, 2023 at 9:28:16 PM
+ * Creation Date: Jan 7, 2023 at 12:45:05 PM
  *********************************************/
 
+ 
 /* read from excel*/
 
-SheetConnection data("Q2Data.xlsx");
+SheetConnection data("Q2Data-PartB.xlsx");
 
 veg from SheetRead(data, "input!C3:C4");
 oil from SheetRead(data, "input!C5:C7");
@@ -27,7 +28,9 @@ inventoryunitcost from SheetRead(data, "input!C12");
 vegrefinelimit from SheetRead(data, "input!C13");
 oilrefinelimit from SheetRead(data, "input!C14");
 
-
+uniqueoillimit from SheetRead(data, "input!C15");
+minusage from SheetRead(data, "input!C16");
+ 
 /*write to excel*/
 BX to SheetWrite(data, "output!E4:J5");
 BY to SheetWrite(data, "output!E6:J8");
@@ -38,8 +41,12 @@ RY to SheetWrite(data, "output!E14:J16");
 IX to SheetWrite(data, "output!E20:J21");
 IY to SheetWrite(data, "output!E22:J24");
 
+UX to SheetWrite(data, "output!E28:J29");
+UY to SheetWrite(data, "output!E30:J32");
+
 Revenue to SheetWrite(data, "output!M3");
 MaterialCost to SheetWrite(data, "output!M4");
 InventoryCost to SheetWrite(data, "output!M5");
 Profit to SheetWrite(data, "output!M6");
 
+ 
