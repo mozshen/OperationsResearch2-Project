@@ -19,9 +19,13 @@
  float charoil[oil]= ...;
  
  float prodprice= ...;
+ 
  float startinventory= ...;
  float endinventory= ...;
  float inventoryunitcost= ...;
+ 
+ float vegrefinelimit= ...;
+ float oilrefinelimit= ...;
  
  /*decision variebles*/
  
@@ -50,10 +54,10 @@ subject to {
   
   /*capacity limit*/
   forall (t in month)
-    sum(i in veg) RX[i][t]<= 200;
+    sum(i in veg) RX[i][t]<= vegrefinelimit;
  
   forall (t in month)
-    sum(i in oil) RY[i][t]<= 250;
+    sum(i in oil) RY[i][t]<= oilrefinelimit;
   
   /*charachtristic limit*/
   
