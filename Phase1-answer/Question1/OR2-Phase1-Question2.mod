@@ -10,7 +10,6 @@
  {int} oil= ...;
  {int} month= ...;
  
- 
  /* parameters*/
  
  float vegprice[veg][month]= ...;
@@ -54,9 +53,10 @@ subject to {
     sum(i in veg) RX[i][t]<= 200;
  
   forall (t in month)
-    sum(i in oil) RY[i][t]<= 200;
+    sum(i in oil) RY[i][t]<= 250;
   
   /*charachtristic limit*/
+  
   /*upper limit*/
   forall (t in month)
   	sum(i in veg) charveg[i]* RX[i][t]+ sum(i in oil) charoil[i]* RY[i][t]-
@@ -106,7 +106,6 @@ subject to {
   forall (t in month, i in oil)
   	RY[i][t]<=IY[i][t];
   
-  
   /*final objective variebles*/
   Revenue== prodprice* sum(i in veg, t in month) RX[i][t]+
 			prodprice* sum(i in oil, t in month) RY[i][t];
@@ -120,43 +119,5 @@ subject to {
   Profit== Revenue- MaterialCost- InventoryCost;
   
   }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
  
