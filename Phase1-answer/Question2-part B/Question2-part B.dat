@@ -9,7 +9,7 @@
 
 SheetConnection data("Q2Data-PartB.xlsx");
 
-veg from SheetRead(data, "input!C3:C4");
+veg from SheetRead(data, "input! C3:C4");
 oil from SheetRead(data, "input!C5:C7");
 month from SheetRead(data, "input!D2:I2");
 

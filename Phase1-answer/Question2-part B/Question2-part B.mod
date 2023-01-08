@@ -110,12 +110,18 @@ subject to {
   	IY[i][t]<=1000;
   
   /*refinement if we have inventory*/
+  forall (i in veg)
+  	RX[i][1]<= startinventory+ BX[i][1];
+  forall (i in veg)
+  	RY[i][1]<= startinventory+ BY[i][1];	
+  
   forall (t in month, i in veg)
-  	RX[i][t]<=IX[i][t];
+    if (t> 1)
+  		RX[i][t]<=IX[i][t-1]+ BX[i][t];
   
   forall (t in month, i in oil)
-  	RY[i][t]<=IY[i][t];
-  	
+    if (t> 1)
+  		RY[i][t]<=IY[i][t-1]+ BY[i][t];
   	
   /*refinement if use*/
   forall (t in month, i in veg)
@@ -133,7 +139,7 @@ subject to {
   	RX[i][t]>= minusage* UX[i][t];
   
   forall (t in month, i in oil)
-  	RY[i][t]>=minusage* UY[i][t];
+  	RY[i][t]>= minusage* UY[i][t];
   
   /*3oil, if 1 or 2 of veg*/
   forall (t in month)
