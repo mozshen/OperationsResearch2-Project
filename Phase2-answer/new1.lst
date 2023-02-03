@@ -1,0 +1,31 @@
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 01:01:27 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  * Phase 2 of OR2 Prject
+   2  * Author: Mohsen Hosseini
+   3   
+   4  * first we define the indices
+   5  sets
+   6  t years /0, 1, 2, 3/
+   7  s skills /l, m, h/;
+   8   
+   9   
+  10   
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+
+
+EXECUTION TIME       =        0.000 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+
+
+USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
+      Sharif, Indonesia                                        DL084616
+
+
+**** FILE SUMMARY
+
+Input      D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
+Output     D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.lst
