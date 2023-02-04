@@ -7,6 +7,8 @@ t years /0, 1, 2, 3/
 d(t) years that the workforce is not given /1, 2, 3/
 s skills /Unskilled, Semi-skilled, Skilled/
 e experience level /New, Experienced/
+param indice for the fixed values /fixed/
+
 ;
 
 Parameter demand_table(t,s)
@@ -28,14 +30,14 @@ $gdxin Pahse2_Data_OR2.gdx
 $load hiring_limit
 ;
 
-Parameter training_limit
-$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!E5
+Parameter training_limit(param)
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!D4 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
 $load training_limit
 ;
 
-Parameter training_theshold
-$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!E6
+Parameter training_theshold(param)
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!D7 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
 $load training_theshold
 ;
@@ -46,8 +48,8 @@ $gdxin Pahse2_Data_OR2.gdx
 $load over_hiring_cost
 ;
 
-Parameter overhiring_limit
-$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!C6
+Parameter overhiring_limit(param)
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!B5 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
 $load overhiring_limit
 ;
@@ -58,8 +60,8 @@ $gdxin Pahse2_Data_OR2.gdx
 $load parttime_cost
 ;
 
-Parameter parttime_limit
-$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!C5
+Parameter parttime_limit(param)
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!B5 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
 $load parttime_limit
 ;
@@ -99,7 +101,10 @@ State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
 State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
 State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
 
-* Hiring_constraint(t, s) limit for hiring for skill s at year t (1.4.3)
+Hiring_constraint_normal(t, s) limit for hiring for skill s at year t (1.4.3)
+Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
+Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
+
 * layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
 * training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
 * demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
@@ -117,7 +122,7 @@ Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t)
 
 
 * state variebles
-* maybe we need to define these for t>0
+* we need to define these for t>0
 *unskilled workers
 State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
     (
@@ -145,8 +150,15 @@ State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')=e=
     )$ (d(t))
 ;
 
+* hiring constraint
+* normal
+Hiring_constraint_normal(t, s).. H(t, s)=l= hiring_limit(s);
 
+* over
+Hiring_constraint_over(t).. sum(s, O(t, s))=l= overhiring_limit('fixed');
 
+* part
+Hiring_constraint_part(t).. sum(s, P(t, s))=l= parttime_limit('fixed');
 
 
 * lay off ogjective for the first part
@@ -154,6 +166,15 @@ layoff.. Z_first=e= sum((t, s), L(t, s));
 
 model testmodel /all/;
 solve testmodel using lp minimizing Z_first;
+
+display demand_table;
+display churn_table;
+display churn_table;
+
+display hiring_limit;
+display overhiring_limit;
+display parttime_limit;
+
 
 display H.l;
 display P.l;
