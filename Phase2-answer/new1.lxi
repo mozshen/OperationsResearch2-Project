@@ -1,2 +1,41 @@
 B 3 C o m p i l a t i o n
-B 153 Include File Summary
+B 173 Include File Summary
+B 202 Equation Listing    SOLVE testmodel Using LP From line 155
+D 205 Workforce_constraint
+D 216 State_variable_unskilled
+D 227 State_variable_semiskilled
+D 238 State_variable_skilled
+D 249 layoff
+B 255 Column Listing      SOLVE testmodel Using LP From line 155
+E 258 H
+E 274 P
+E 290 L
+E 309 O
+E 325 Train
+E 344 Demote
+E 363 W
+E 385 Z_first
+B 393 Range Statistics    SOLVE testmodel Using LP From line 155
+B 404 Model Statistics    SOLVE testmodel Using LP From line 155
+B 417 Solution Report     SOLVE testmodel Using LP From line 155
+F 448 Workforce_constraint
+F 465 State_variable_unskilled
+F 474 State_variable_semiskilled
+F 483 State_variable_skilled
+F 494 layoff
+G 498 H
+G 512 P
+G 529 L
+G 546 O
+G 560 Train
+G 571 Demote
+G 585 W
+G 604 Z_first
+B 614 E x e c u t i o n
+I 614 H
+I 620 P
+I 625 L
+I 630 O
+I 635 Train
+I 640 Demote
+I 651 W

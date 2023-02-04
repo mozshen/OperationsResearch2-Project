@@ -66,6 +66,7 @@ $load parttime_limit
 
 variables
 H(t, s) hiring for skill s at year t
+
 P(t, s) parttime for skill s at year t
 L(t, s) lay off for skill s at year t
 O(t, s) over-hire for skill s at year t
@@ -79,61 +80,96 @@ Z_first total lay offs at all years for all skills
 Z_second total cost
 ;
 
+positive Variable H;
+positive Variable P;
+positive Variable L;
+positive Variable O;
+
+positive Variable Train;
+positive Variable Demote;
+
+positive Variable W;
+
 Equations
 
 Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
-Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
+* Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
 
 State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
 State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
 State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
 
-Hiring_constraint(t, s) limit for hiring for skill s at year t (1.4.3)
-layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
-training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
-demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
+* Hiring_constraint(t, s) limit for hiring for skill s at year t (1.4.3)
+* layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+* training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
+* demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
 
 layoff objective function of the first part
-Cost objective function of the second part
+* Cost objective function of the second part
 ;
 
 * workforce
 * for years 1 to 3 we should have the requested workforce
-Workforce_constraint(t, s) .. W(t, s) =g= demand_table(t, s)$(d(t));
+Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
 
 * for year 0 the workforce is given so we use the equal
-Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
+* Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
 
 
 * state variebles
 * maybe we need to define these for t>0
 *unskilled workers
 State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
+    (
     W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
     -[L(t-1, 'Unskilled')+ churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled')- H(t-1, 'Unskilled')- L(t-1, 'Unskilled')- O(t-1, 'Unskilled'))]
     +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
+    )$ (d(t))
 ;
 
 * semiskilled workers
 State_variable_semiskilled(t, 'Semi-skilled').. W(t, 'Semi-skilled')=e=
+    (
     W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
     -[L(t-1, 'Semi-skilled')+ churn_table('New', 'Unskilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled')- H(t-1, 'Semi-skilled')- L(t-1, 'Semi-skilled')- O(t-1, 'Semi-skilled'))]
     +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
-    
+    )$ (d(t))
 ;
 
 * skilled workers
 State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')=e=
+    (
     W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
     -[L(t-1, 'Skilled')+ churn_table('New', 'Unskilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled')- H(t-1, 'Skilled')- L(t-1, 'Skilled')- O(t-1, 'Skilled'))]
     +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
-    
+    )$ (d(t))
 ;
 
 
-* layoff .. Z_first=e= 10;
+
+
+
+* lay off ogjective for the first part
+layoff.. Z_first=e= sum((t, s), L(t, s));
 
 model testmodel /all/;
 solve testmodel using lp minimizing Z_first;
+
+display H.l;
+display P.l;
+display L.l;
+display O.l;
+
+display Train.l;
+display Demote.l;
+
+display W.l;
+
+execute_unload "Pahse2_Data_OR2.gdx" W.l;
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2'
+*execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8'
+*execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=z.l rng=Objective!C3'
+
+
 
 
