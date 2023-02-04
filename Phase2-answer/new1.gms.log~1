@@ -1,5 +1,5 @@
 
---- Job new1.gms Start 02/04/23 15:43:31 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
+--- Job new1.gms Start 02/04/23 15:44:23 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
 --- Applying:
     D:\Programs\GAMS\42\gmsprmNT.txt
 --- GAMS Parameters defined
@@ -26,7 +26,7 @@ GAMS 42.1.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 484 Ms
+Total time = 500 Ms
 --- new1.gms(16) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -36,7 +36,7 @@ Total time = 484 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 515 Ms
+Total time = 516 Ms
 --- new1.gms(22) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -46,7 +46,7 @@ Total time = 515 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 578 Ms
+Total time = 531 Ms
 --- new1.gms(29) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -56,7 +56,7 @@ Total time = 578 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 563 Ms
+Total time = 532 Ms
 --- new1.gms(35) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -66,7 +66,7 @@ Total time = 563 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 500 Ms
+Total time = 531 Ms
 --- new1.gms(41) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -76,7 +76,7 @@ Total time = 500 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 563 Ms
+Total time = 531 Ms
 --- new1.gms(47) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -86,7 +86,7 @@ Total time = 563 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 593 Ms
+Total time = 594 Ms
 --- new1.gms(53) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -106,20 +106,20 @@ Total time = 547 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 547 Ms
+Total time = 625 Ms
 --- new1.gms(65) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- new1.gms(196) 3 Mb
---- Starting execution: elapsed 0:00:05.467
+--- Starting execution: elapsed 0:00:05.277
 --- Generating LP model testmodel
 --- new1.gms(168) 4 Mb
----   37 rows  73 columns  127 non-zeroes
+---   45 rows  76 columns  151 non-zeroes
 --- Range statistics (absolute non-zero finite values)
---- RHS       [min, max] : [ 5.000E+02, 2.500E+03] - Zero values observed as well
+--- RHS       [min, max] : [ 5.000E+01, 2.500E+03] - Zero values observed as well
 --- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 --- Matrix    [min, max] : [ 5.000E-01, 1.900E+01]
---- Executing CPLEX (Solvelink=2): elapsed 0:00:05.473
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:05.277
 
 IBM ILOG CPLEX   42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 
@@ -137,9 +137,9 @@ CPXPARAM_MIP_Display                             4
 CPXPARAM_MIP_Pool_Capacity                       0
 CPXPARAM_MIP_Tolerances_AbsMIPGap                0
 Tried aggregator 1 time.
-LP Presolve eliminated 36 rows and 73 columns.
+LP Presolve eliminated 44 rows and 76 columns.
 All rows and columns eliminated.
-Presolve time = 0.00 sec. (0.03 ticks)
+Presolve time = 0.00 sec. (0.04 ticks)
 
 --- LP status (1): optimal.
 --- Cplex Time: 0.00sec (det. 0.05 ticks)
@@ -149,7 +149,7 @@ Optimal solution found
 Objective:            0.000000
 
 --- Reading solution for model testmodel
---- Executing after solve: elapsed 0:00:05.493
+--- Executing after solve: elapsed 0:00:05.293
 --- new1.gms(189) 4 Mb
 --- GDX File (execute_unload) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- new1.gms(190) 4 Mb
@@ -157,6 +157,6 @@ Objective:            0.000000
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
-Total time = 1157 Ms
+Total time = 734 Ms
 *** Status: Normal completion
---- Job new1.gms Stop 02/04/23 15:43:38 elapsed 0:00:06.684
+--- Job new1.gms Stop 02/04/23 15:44:29 elapsed 0:00:06.075

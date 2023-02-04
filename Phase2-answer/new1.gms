@@ -105,7 +105,7 @@ Hiring_constraint_normal(t, s) limit for hiring for skill s at year t (1.4.3)
 Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
 Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
 
-* layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
 * training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
 * demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
 
@@ -159,6 +159,14 @@ Hiring_constraint_over(t).. sum(s, O(t, s))=l= overhiring_limit('fixed');
 
 * part
 Hiring_constraint_part(t).. sum(s, P(t, s))=l= parttime_limit('fixed');
+
+* lay off constraint
+layoff_constraint(t, s).. L(t, s)=l= W(t, s);
+
+
+
+
+
 
 
 * lay off ogjective for the first part

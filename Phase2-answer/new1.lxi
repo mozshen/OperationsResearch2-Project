@@ -1,53 +1,55 @@
 B 3 C o m p i l a t i o n
-B 195 Include File Summary
-B 224 Equation Listing    SOLVE testmodel Using LP From line 168
-D 227 Workforce_constraint
-D 238 State_variable_unskilled
-D 249 State_variable_semiskilled
-D 260 State_variable_skilled
-D 271 Hiring_constraint_normal
-D 282 Hiring_constraint_over
-D 293 Hiring_constraint_part
-D 304 layoff
-B 310 Column Listing      SOLVE testmodel Using LP From line 168
-E 313 H
-E 332 P
-E 351 L
-E 370 O
-E 389 Train
-E 408 Demote
-E 427 W
-E 449 Z_first
-B 457 Range Statistics    SOLVE testmodel Using LP From line 168
-B 468 Model Statistics    SOLVE testmodel Using LP From line 168
-B 481 Solution Report     SOLVE testmodel Using LP From line 168
-F 512 Workforce_constraint
-F 529 State_variable_unskilled
-F 538 State_variable_semiskilled
-F 547 State_variable_skilled
-F 556 Hiring_constraint_normal
-F 573 Hiring_constraint_over
-F 582 Hiring_constraint_part
-F 593 layoff
-G 597 H
-G 614 P
-G 631 L
-G 648 O
-G 665 Train
-G 676 Demote
-G 690 W
-G 709 Z_first
-B 719 E x e c u t i o n
-I 719 demand_table
-I 730 churn_table
-I 738 churn_table
-I 746 hiring_limit
-I 751 overhiring_limit
-I 756 parttime_limit
-I 761 H
-I 766 P
-I 771 L
-I 776 O
-I 781 Train
-I 786 Demote
-I 797 W
+B 203 Include File Summary
+B 232 Equation Listing    SOLVE testmodel Using LP From line 176
+D 235 Workforce_constraint
+D 246 State_variable_unskilled
+D 257 State_variable_semiskilled
+D 268 State_variable_skilled
+D 279 Hiring_constraint_normal
+D 290 Hiring_constraint_over
+D 301 Hiring_constraint_part
+D 312 layoff_constraint
+D 323 layoff
+B 329 Column Listing      SOLVE testmodel Using LP From line 176
+E 332 H
+E 351 P
+E 370 L
+E 392 O
+E 411 Train
+E 430 Demote
+E 449 W
+E 474 Z_first
+B 482 Range Statistics    SOLVE testmodel Using LP From line 176
+B 493 Model Statistics    SOLVE testmodel Using LP From line 176
+B 506 Solution Report     SOLVE testmodel Using LP From line 176
+F 537 Workforce_constraint
+F 554 State_variable_unskilled
+F 563 State_variable_semiskilled
+F 572 State_variable_skilled
+F 581 Hiring_constraint_normal
+F 598 Hiring_constraint_over
+F 607 Hiring_constraint_part
+F 616 layoff_constraint
+F 635 layoff
+G 639 H
+G 656 P
+G 673 L
+G 690 O
+G 707 Train
+G 718 Demote
+G 732 W
+G 751 Z_first
+B 761 E x e c u t i o n
+I 761 demand_table
+I 772 churn_table
+I 780 churn_table
+I 788 hiring_limit
+I 793 overhiring_limit
+I 798 parttime_limit
+I 803 H
+I 810 P
+I 815 L
+I 820 O
+I 827 Train
+I 832 Demote
+I 842 W
