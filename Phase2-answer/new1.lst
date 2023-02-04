@@ -1,4 +1,4 @@
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 1
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -150,7 +150,7 @@ GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answ
  154      (
  155      W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
  156      -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
- 157      +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
+ 157      +[-Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
  158      )$ (d(t))
  159  ;
  160   
@@ -260,7 +260,7 @@ GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answ
  264   
  265   
  266   
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 2
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Include File Summary
 
@@ -288,8 +288,8 @@ Include File Summary
     19       65 GDXIN          1      65  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 
 
-COMPILATION TIME     =        6.469 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 3
+COMPILATION TIME     =        5.234 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Equation Listing    SOLVE testmodel Using LP From line 223
 
@@ -331,9 +331,9 @@ REMAINING ENTRY SKIPPED
 
 State_variable_skilled(0,Skilled)..  W(0,Skilled) =E= 0 ; (LHS = 0)
      
-State_variable_skilled(1,Skilled)..  - 0.9*H(0,Skilled) + L(0,Skilled) - 0.9*O(0,Skilled) - Train(0,Semi-skilled,Skilled) + Demote(0,Skilled,Unskilled) - 0.5*Demote(0,Skilled,Semi-skilled) - 0.95*W(0,Skilled) + W(1,Skilled) =E= 0 ; (LHS = 0)
+State_variable_skilled(1,Skilled)..  - 0.9*H(0,Skilled) + L(0,Skilled) - 0.9*O(0,Skilled) - Train(0,Semi-skilled,Skilled) + Demote(0,Skilled,Unskilled) + Demote(0,Skilled,Semi-skilled) - 0.95*W(0,Skilled) + W(1,Skilled) =E= 0 ; (LHS = 0)
      
-State_variable_skilled(2,Skilled)..  - 0.9*H(1,Skilled) + L(1,Skilled) - 0.9*O(1,Skilled) - Train(1,Semi-skilled,Skilled) + Demote(1,Skilled,Unskilled) - 0.5*Demote(1,Skilled,Semi-skilled) - 0.95*W(1,Skilled) + W(2,Skilled) =E= 0 ; (LHS = 0)
+State_variable_skilled(2,Skilled)..  - 0.9*H(1,Skilled) + L(1,Skilled) - 0.9*O(1,Skilled) - Train(1,Semi-skilled,Skilled) + Demote(1,Skilled,Unskilled) + Demote(1,Skilled,Semi-skilled) - 0.95*W(1,Skilled) + W(2,Skilled) =E= 0 ; (LHS = 0)
      
 REMAINING ENTRY SKIPPED
 
@@ -441,7 +441,7 @@ REMAINING 9 ENTRIES SKIPPED
 
 layoff..  - L(0,Unskilled) - L(0,Semi-skilled) - L(0,Skilled) - L(1,Unskilled) - L(1,Semi-skilled) - L(1,Skilled) - L(2,Unskilled) - L(2,Semi-skilled) - L(2,Skilled) - L(3,Unskilled) - L(3,Semi-skilled) - L(3,Skilled) + Z_first =E= 0 ; (LHS = 0)
      
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 4
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Column Listing      SOLVE testmodel Using LP From line 223
 
@@ -586,7 +586,7 @@ Demote(0,Skilled,Unskilled)
 Demote(0,Skilled,Semi-skilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
        -0.5     State_variable_semiskilled(1,Semi-skilled)
-       -0.5     State_variable_skilled(1,Skilled)
+        1       State_variable_skilled(1,Skilled)
         1       demote_constraint_skilled(0,Unskilled,Unskilled)
         1       demote_constraint_skilled(0,Semi-skilled,Semi-skilled)
         1       demote_constraint_skilled(0,Skilled,Skilled)
@@ -639,7 +639,7 @@ Z_first
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       layoff
 
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 5
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Range Statistics    SOLVE testmodel Using LP From line 223
 
@@ -650,7 +650,7 @@ RHS       [min, max] : [ 5.000E+01, 2.500E+03] - Zero values observed as well
 Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 Matrix    [min, max] : [ 2.500E-01, 1.000E+00]
 
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 6
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Model Statistics    SOLVE testmodel Using LP From line 223
 
@@ -662,8 +662,8 @@ BLOCKS OF VARIABLES           8     SINGLE VARIABLES           78
 NON ZERO ELEMENTS           319
 
 
-GENERATION TIME      =        0.047 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 7
+GENERATION TIME      =        0.016 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Solution Report     SOLVE testmodel Using LP From line 223
 
@@ -707,8 +707,8 @@ Objective:            0.000000
 1.Semi-skilled      1400.0000      1400.0000        +INF            EPS         
 1.Skilled           1000.0000      1000.0000        +INF            EPS         
 2.Unskilled          500.0000       700.0000        +INF             .          
-2.Semi-skilled      2000.0000      2030.0000        +INF             .          
-2.Skilled           1500.0000      1585.0000        +INF             .          
+2.Semi-skilled      2000.0000      2000.0000        +INF            EPS         
+2.Skilled           1500.0000      1500.0000        +INF            EPS         
 3.Unskilled             .           630.0000        +INF             .          
 3.Semi-skilled      2500.0000      2500.0000        +INF            EPS         
 3.Skilled           2000.0000      2000.0000        +INF            EPS         
@@ -750,9 +750,9 @@ Objective:            0.000000
 1.Unskilled   .Unskilled           -INF        -1400.0000          .              .          
 1.Semi-skilled.Semi-skilled        -INF        -1400.0000          .              .          
 1.Skilled     .Skilled             -INF        -1400.0000          .              .          
-2.Unskilled   .Unskilled           -INF        -2030.0000          .              .          
-2.Semi-skilled.Semi-skilled        -INF        -2030.0000          .              .          
-2.Skilled     .Skilled             -INF        -2030.0000          .              .          
+2.Unskilled   .Unskilled           -INF        -2000.0000          .              .          
+2.Semi-skilled.Semi-skilled        -INF        -2000.0000          .              .          
+2.Skilled     .Skilled             -INF        -2000.0000          .              .          
 3.Unskilled   .Unskilled           -INF        -2500.0000          .              .          
 3.Semi-skilled.Semi-skilled        -INF        -2500.0000          .              .          
 3.Skilled     .Skilled             -INF        -2500.0000          .              .          
@@ -764,12 +764,12 @@ Objective:            0.000000
 0.Unskilled   .Unskilled           -INF             .              .              .          
 0.Semi-skilled.Semi-skilled        -INF             .              .              .          
 0.Skilled     .Skilled             -INF             .              .              .          
-1.Unskilled   .Unskilled           -INF             .              .              .          
-1.Semi-skilled.Semi-skilled        -INF             .              .              .          
-1.Skilled     .Skilled             -INF             .              .             EPS         
-2.Unskilled   .Unskilled           -INF        -1585.0000          .              .          
-2.Semi-skilled.Semi-skilled        -INF        -1585.0000          .              .          
-2.Skilled     .Skilled             -INF        -1585.0000          .              .          
+1.Unskilled   .Unskilled           -INF        -1000.0000          .              .          
+1.Semi-skilled.Semi-skilled        -INF        -1000.0000          .              .          
+1.Skilled     .Skilled             -INF        -1000.0000          .              .          
+2.Unskilled   .Unskilled           -INF        -1500.0000          .              .          
+2.Semi-skilled.Semi-skilled        -INF        -1500.0000          .              .          
+2.Skilled     .Skilled             -INF        -1500.0000          .              .          
 3.Unskilled   .Unskilled           -INF        -2000.0000          .              .          
 3.Semi-skilled.Semi-skilled        -INF        -2000.0000          .              .          
 3.Skilled     .Skilled             -INF        -2000.0000          .              .          
@@ -784,9 +784,9 @@ Objective:            0.000000
 1.Unskilled   .Unskilled           -INF         -250.0000          .              .          
 1.Semi-skilled.Semi-skilled        -INF         -250.0000          .              .          
 1.Skilled     .Skilled             -INF         -250.0000          .              .          
-2.Unskilled   .Unskilled           -INF         -396.2500          .              .          
-2.Semi-skilled.Semi-skilled        -INF         -396.2500          .              .          
-2.Skilled     .Skilled             -INF         -396.2500          .              .          
+2.Unskilled   .Unskilled           -INF         -375.0000          .              .          
+2.Semi-skilled.Semi-skilled        -INF         -375.0000          .              .          
+2.Skilled     .Skilled             -INF         -375.0000          .              .          
 3.Unskilled   .Unskilled           -INF         -500.0000          .              .          
 3.Semi-skilled.Semi-skilled        -INF         -500.0000          .              .          
 3.Skilled     .Skilled             -INF         -500.0000          .              .          
@@ -801,9 +801,9 @@ Objective:            0.000000
 1.Unskilled   .Unskilled           -INF        -1600.0000          .              .          
 1.Semi-skilled.Semi-skilled        -INF        -1600.0000          .              .          
 1.Skilled     .Skilled             -INF        -1600.0000          .              .          
-2.Unskilled   .Unskilled           -INF        -2030.0000          .              .          
-2.Semi-skilled.Semi-skilled        -INF        -2030.0000          .              .          
-2.Skilled     .Skilled             -INF        -2030.0000          .              .          
+2.Unskilled   .Unskilled           -INF        -2000.0000          .              .          
+2.Semi-skilled.Semi-skilled        -INF        -2000.0000          .              .          
+2.Skilled     .Skilled             -INF        -2000.0000          .              .          
 3.Unskilled   .Unskilled           -INF        -2500.0000          .              .          
 3.Semi-skilled.Semi-skilled        -INF        -2500.0000          .              .          
 3.Skilled     .Skilled             -INF        -2500.0000          .              .          
@@ -871,8 +871,8 @@ Objective:            0.000000
 1.Semi-skilled        -INF        -1400.0000          .              .          
 1.Skilled             -INF        -1000.0000          .              .          
 2.Unskilled           -INF         -700.0000          .              .          
-2.Semi-skilled        -INF        -2030.0000          .              .          
-2.Skilled             -INF        -1585.0000          .              .          
+2.Semi-skilled        -INF        -2000.0000          .              .          
+2.Skilled             -INF        -1500.0000          .              .          
 3.Unskilled           -INF         -630.0000          .              .          
 3.Semi-skilled        -INF        -2500.0000          .              .          
 3.Skilled             -INF        -2000.0000          .              .          
@@ -891,11 +891,11 @@ Objective:            0.000000
 0.Semi-skilled          .          1750.0000        +INF             .          
 0.Skilled               .           961.1111        +INF             .          
 1.Unskilled             .              .            +INF            EPS         
-1.Semi-skilled          .              .            +INF            EPS         
-1.Skilled               .              .            +INF            EPS         
+1.Semi-skilled          .           587.5000        +INF             .          
+1.Skilled               .           461.1111        +INF             .          
 2.Unskilled             .              .            +INF            EPS         
-2.Semi-skilled          .           714.3750        +INF             .          
-2.Skilled               .           549.1667        +INF             .          
+2.Semi-skilled          .           750.0000        +INF             .          
+2.Skilled               .           638.8889        +INF             .          
 
 ---- VAR P  parttime for skill s at year t
 
@@ -970,7 +970,7 @@ Objective:            0.000000
 0.Skilled     .Semi-skilled          .              .            +INF            EPS         
 1.Semi-skilled.Unskilled             .              .            +INF            EPS         
 1.Skilled     .Unskilled             .              .            +INF            EPS         
-1.Skilled     .Semi-skilled          .          1000.0000        +INF             .          
+1.Skilled     .Semi-skilled          .              .            +INF            EPS         
 2.Semi-skilled.Unskilled             .              .            +INF            EPS         
 2.Skilled     .Unskilled             .              .            +INF            EPS         
 2.Skilled     .Semi-skilled          .              .            +INF            EPS         
@@ -989,8 +989,8 @@ Objective:            0.000000
 1.Semi-skilled          .          1400.0000        +INF             .          
 1.Skilled               .          1000.0000        +INF             .          
 2.Unskilled             .           700.0000        +INF             .          
-2.Semi-skilled          .          2030.0000        +INF             .          
-2.Skilled               .          1585.0000        +INF             .          
+2.Semi-skilled          .          2000.0000        +INF             .          
+2.Skilled               .          1500.0000        +INF             .          
 3.Unskilled             .           630.0000        +INF             .          
 3.Semi-skilled          .          2500.0000        +INF             .          
 3.Skilled               .          2000.0000        +INF             .          
@@ -1005,7 +1005,7 @@ Objective:            0.000000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:16:16 Page 8
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 8
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
@@ -1059,7 +1059,7 @@ fixed 50.000
 
 0         EPS         EPS         EPS
 1    1000.000    1400.000    1000.000
-2     700.000    2030.000    1585.000
+2     700.000    2000.000    1500.000
 3     630.000    2500.000    2000.000
 
 
@@ -1068,8 +1068,8 @@ fixed 50.000
     Unskilled  Semi-skil~     Skilled
 
 0    1333.333    1750.000     961.111
-1         EPS         EPS         EPS
-2         EPS     714.375     549.167
+1         EPS     587.500     461.111
+2         EPS     750.000     638.889
 3         EPS         EPS         EPS
 
 
@@ -1120,7 +1120,7 @@ fixed 50.000
 0.Skilled                                      EPS
 1.Unskilled            EPS
 1.Semi-skilled                     EPS
-1.Skilled                     1000.000         EPS
+1.Skilled                                      EPS
 2.Unskilled            EPS
 2.Semi-skilled                     EPS
 2.Skilled                                      EPS
@@ -1140,7 +1140,7 @@ fixed 50.000
 
 
 
-EXECUTION TIME       =        6.578 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+EXECUTION TIME       =        6.031 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
 
 
 USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
