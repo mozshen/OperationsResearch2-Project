@@ -5,6 +5,8 @@
 sets
 t years /0, 1, 2, 3/
 d(t) years that the workforce is not given /1, 2, 3/
+g(t) first year /0/
+
 s skills /Unskilled, Semi-skilled, Skilled/
 e experience level /New, Experienced/
 param indice for the fixed values /fixed/
@@ -82,15 +84,15 @@ Z_first total lay offs at all years for all skills
 Z_second total cost
 ;
 
-positive Variable H;
-positive Variable P;
-positive Variable L;
-positive Variable O;
+integer variable H;
+integer variable P;
+integer variable L;
+integer variable O;
 
-positive Variable Train;
-positive Variable Demote;
+integer variable Train;
+integer variable Demote;
 
-positive Variable W;
+integer variable W;
 
 Equations
 
@@ -126,36 +128,36 @@ layoff objective function of the first part
 Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
 
 * for year 0 the workforce is given so we use the equal
-Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
+Workforce_given(t, s) .. W('0', s) =e= demand_table('0', s);
 
 
 * state variebles
 * we need to define these for t>0
 *unskilled workers
-State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
+State_variable_unskilled(t, 'Unskilled')$(d(t)).. W(t, 'Unskilled')=e=
     (
     W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
     -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled'))]
     +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
-    )$ (d(t))
+    )
 ;
 
 * semiskilled workers
-State_variable_semiskilled(t, 'Semi-skilled').. W(t, 'Semi-skilled')=e=
+State_variable_semiskilled(t, 'Semi-skilled')$(d(t)).. W(t, 'Semi-skilled')=e=
     (
     W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
     -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Semi-skilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled'))]
     +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
-    )$ (d(t))
+    )
 ;
 
 * skilled workers
-State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')=e=
+State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')$(d(t))=e=
     (
     W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
     -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
     +[-Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
-    )$ (d(t))
+    )
 ;
 
 * hiring constraint
@@ -191,7 +193,7 @@ layoff.. Z_first=e= sum((t, s), L(t, s));
 
 model testmodel /
     
-*    Workforce_given,
+    Workforce_given,
     Workforce_constraint,
 
     State_variable_unskilled,
@@ -205,7 +207,7 @@ model testmodel /
     training_constraint_unskilled_limit,
     training_constraint_unskilled_workforce,
     
-*    Hiring_constraint_normal,
+    Hiring_constraint_normal,
     Hiring_constraint_part,
     Hiring_constraint_over,
     layoff_constraint,
@@ -213,14 +215,9 @@ model testmodel /
     layoff
     
 /
-
-*   Workforce_given,
-     
-    
-    
-           
 ;
-solve testmodel using lp minimizing Z_first;
+
+solve testmodel using mip minimizing Z_first;
 
 display demand_table;
 display churn_table;

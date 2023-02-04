@@ -1,4 +1,4 @@
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 1
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -10,257 +10,254 @@ C o m p i l a t i o n
    5  sets
    6  t years /0, 1, 2, 3/
    7  d(t) years that the workforce is not given /1, 2, 3/
-   8  s skills /Unskilled, Semi-skilled, Skilled/
-   9  e experience level /New, Experienced/
-  10  param indice for the fixed values /fixed/
-  11   
-  12  ;
+   8  g(t) first year /0/
+   9   
+  10  s skills /Unskilled, Semi-skilled, Skilled/
+  11  e experience level /New, Experienced/
+  12  param indice for the fixed values /fixed/
   13   
-  14  Parameter demand_table(t,s)
+  14  ;
+  15   
+  16  Parameter demand_table(t,s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  demand_table = 1:demand_table
-  18  ;
-  19   
-  20  Parameter churn_table(e,s)
+  20  ;
+  21   
+  22  Parameter churn_table(e,s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  churn_table = 1:churn_table
-  24  ;
-  25   
-  26   
-  27  Parameter hiring_limit(s)
+  26  ;
+  27   
+  28   
+  29  Parameter hiring_limit(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  hiring_limit = 1:hiring_limit
-  31  ;
-  32   
-  33  Parameter training_limit(param)
+  33  ;
+  34   
+  35  Parameter training_limit(param)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  training_limit = 1:training_limit
-  37  ;
-  38   
-  39  Parameter training_theshold(param)
+  39  ;
+  40   
+  41  Parameter training_theshold(param)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  training_theshold = 1:training_theshold
-  43  ;
-  44   
-  45  Parameter over_hiring_cost(s)
+  45  ;
+  46   
+  47  Parameter over_hiring_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  over_hiring_cost = 1:over_hiring_cost
-  49  ;
-  50   
-  51  Parameter overhiring_limit(param)
+  51  ;
+  52   
+  53  Parameter overhiring_limit(param)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  overhiring_limit = 1:overhiring_limit
-  55  ;
-  56   
-  57  Parameter parttime_cost(s)
+  57  ;
+  58   
+  59  Parameter parttime_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  parttime_cost = 1:parttime_cost
-  61  ;
-  62   
-  63  Parameter parttime_limit(param)
+  63  ;
+  64   
+  65  Parameter parttime_limit(param)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  parttime_limit = 1:parttime_limit
-  67  ;
-  68   
-  69  variables
-  70  H(t, s) hiring for skill s at year t
-  71   
-  72  P(t, s) parttime for skill s at year t
-  73  L(t, s) lay off for skill s at year t
-  74  O(t, s) over-hire for skill s at year t
-  75   
-  76  Train(t, s, s) training from skill s1 to skill s2 at year t
-  77  Demote(t, s, s) demoting from skill s1 to skill s2 at year t
-  78   
-  79  W(t ,s) workforce for skill s at year t
+  69  ;
+  70   
+  71  variables
+  72  H(t, s) hiring for skill s at year t
+  73   
+  74  P(t, s) parttime for skill s at year t
+  75  L(t, s) lay off for skill s at year t
+  76  O(t, s) over-hire for skill s at year t
+  77   
+  78  Train(t, s, s) training from skill s1 to skill s2 at year t
+  79  Demote(t, s, s) demoting from skill s1 to skill s2 at year t
   80   
-  81  Z_first total lay offs at all years for all skills
-  82  Z_second total cost
-  83  ;
-  84   
-  85  positive Variable H;
-  86  positive Variable P;
-  87  positive Variable L;
-  88  positive Variable O;
-  89   
-  90  positive Variable Train;
-  91  positive Variable Demote;
-  92   
-  93  positive Variable W;
+  81  W(t ,s) workforce for skill s at year t
+  82   
+  83  Z_first total lay offs at all years for all skills
+  84  Z_second total cost
+  85  ;
+  86   
+  87  integer variable H;
+  88  integer variable P;
+  89  integer variable L;
+  90  integer variable O;
+  91   
+  92  integer variable Train;
+  93  integer variable Demote;
   94   
-  95  Equations
+  95  integer variable W;
   96   
-  97  Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
-  98  Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
-  99   
- 100  State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
- 101  State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
- 102  State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
- 103   
- 104  Hiring_constraint_normal(t, s) limit for hiring for skill s at year t (1.4.3)
- 105  Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
- 106  Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
- 107   
- 108  layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+  97  Equations
+  98   
+  99  Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
+ 100  Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
+ 101   
+ 102  State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
+ 103  State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
+ 104  State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
+ 105   
+ 106  Hiring_constraint_normal(t, s) limit for hiring for skill s at year t (1.4.3)
+ 107  Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
+ 108  Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
  109   
- 110  training_constraint_unskilled_limit(t, s, s) training limit for training from unslikked to semi-skilled at year t (1.4.5)
- 111  training_constraint_unskilled_workforce(t, s, s) workforce limit for training from unslikked to semi-skilled at year t (1.4.5)
- 112   
- 113  training_constraint_semiskilled_limit(t, s, s) training limit for training from semiskilled to skilled at year t (1.4.5)
- 114  training_constraint_semiskilled_workforce(t, s, s) workforce limit for training from semiskilled to skilled at year t (1.4.5)
- 115   
- 116   
- 117  demote_constraint_semiskilled(t, s, s) limit for demote from semiskikk at year t (1.4.6)
- 118  demote_constraint_skilled(t, s, s) limit for demote from skilled at year t (1.4.6)
- 119   
- 120  layoff objective function of the first part
- 121  * Cost objective function of the second part
- 122  ;
- 123   
- 124  * workforce
- 125  * for years 1 to 3 we should have the requested workforce
- 126  Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
- 127   
- 128  * for year 0 the workforce is given so we use the equal
- 129  Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
- 130   
- 131   
- 132  * state variebles
- 133  * we need to define these for t>0
- 134  *unskilled workers
- 135  State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
- 136      (
- 137      W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
- 138      -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled'))]
- 139      +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
- 140      )$ (d(t))
- 141  ;
- 142   
- 143  * semiskilled workers
- 144  State_variable_semiskilled(t, 'Semi-skilled').. W(t, 'Semi-skilled')=e=
- 145      (
- 146      W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
- 147      -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Semi-skilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled'))]
- 148      +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
- 149      )$ (d(t))
- 150  ;
- 151   
- 152  * skilled workers
- 153  State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')=e=
- 154      (
- 155      W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
- 156      -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
- 157      +[-Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
- 158      )$ (d(t))
- 159  ;
- 160   
- 161  * hiring constraint
- 162  * normal
- 163  Hiring_constraint_normal(t, s).. H(t, s)=l= hiring_limit(s);
- 164   
- 165  * over
- 166  Hiring_constraint_over(t).. sum(s, O(t, s))=l= overhiring_limit('fixed');
- 167   
- 168  * part
- 169  Hiring_constraint_part(t).. sum(s, P(t, s))=l= parttime_limit('fixed');
- 170   
- 171  * lay off constraint
- 172  layoff_constraint(t, s).. L(t, s)=l= W(t, s);
- 173   
- 174   
+ 110  layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+ 111   
+ 112  training_constraint_unskilled_limit(t, s, s) training limit for training from unslikked to semi-skilled at year t (1.4.5)
+ 113  training_constraint_unskilled_workforce(t, s, s) workforce limit for training from unslikked to semi-skilled at year t (1.4.5)
+ 114   
+ 115  training_constraint_semiskilled_limit(t, s, s) training limit for training from semiskilled to skilled at year t (1.4.5)
+ 116  training_constraint_semiskilled_workforce(t, s, s) workforce limit for training from semiskilled to skilled at year t (1.4.5)
+ 117   
+ 118   
+ 119  demote_constraint_semiskilled(t, s, s) limit for demote from semiskikk at year t (1.4.6)
+ 120  demote_constraint_skilled(t, s, s) limit for demote from skilled at year t (1.4.6)
+ 121   
+ 122  layoff objective function of the first part
+ 123  * Cost objective function of the second part
+ 124  ;
+ 125   
+ 126  * workforce
+ 127  * for years 1 to 3 we should have the requested workforce
+ 128  Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
+ 129   
+ 130  * for year 0 the workforce is given so we use the equal
+ 131  Workforce_given(t, s) .. W('0', s) =e= demand_table('0', s);
+ 132   
+ 133   
+ 134  * state variebles
+ 135  * we need to define these for t>0
+ 136  *unskilled workers
+ 137  State_variable_unskilled(t, 'Unskilled')$(d(t)).. W(t, 'Unskilled')=e=
+ 138      (
+ 139      W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
+ 140      -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled'))]
+ 141      +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
+ 142      )
+ 143  ;
+ 144   
+ 145  * semiskilled workers
+ 146  State_variable_semiskilled(t, 'Semi-skilled')$(d(t)).. W(t, 'Semi-skilled')=e=
+ 147      (
+ 148      W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
+ 149      -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Semi-skilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled'))]
+ 150      +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
+ 151      )
+ 152  ;
+ 153   
+ 154  * skilled workers
+ 155  State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')$(d(t))=e=
+ 156      (
+ 157      W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
+ 158      -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
+ 159      +[-Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
+ 160      )
+ 161  ;
+ 162   
+ 163  * hiring constraint
+ 164  * normal
+ 165  Hiring_constraint_normal(t, s).. H(t, s)=l= hiring_limit(s);
+ 166   
+ 167  * over
+ 168  Hiring_constraint_over(t).. sum(s, O(t, s))=l= overhiring_limit('fixed');
+ 169   
+ 170  * part
+ 171  Hiring_constraint_part(t).. sum(s, P(t, s))=l= parttime_limit('fixed');
+ 172   
+ 173  * lay off constraint
+ 174  layoff_constraint(t, s).. L(t, s)=l= W(t, s);
  175   
- 176  * Training constraints
- 177  training_constraint_unskilled_limit(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= training_limit('fixed');
- 178  training_constraint_unskilled_workforce(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= W(t, 'Unskilled');
- 179   
- 180  training_constraint_semiskilled_limit(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= training_theshold('fixed')* W(t, 'Skilled');
- 181  training_constraint_semiskilled_workforce(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= W(t, 'Semi-skilled')+ Train(t, 'Unskilled', 'Semi-skilled');
- 182   
- 183  * demotion constraints
- 184  demote_constraint_semiskilled(t, s, s).. Demote(t, 'Semi-skilled', 'Unskilled')=l= W(t, 'Semi-skilled');
- 185  demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demote(t, 'Skilled', 'Unskilled')=l= W(t, 'Skilled');
- 186   
- 187   
+ 176   
+ 177   
+ 178  * Training constraints
+ 179  training_constraint_unskilled_limit(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= training_limit('fixed');
+ 180  training_constraint_unskilled_workforce(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= W(t, 'Unskilled');
+ 181   
+ 182  training_constraint_semiskilled_limit(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= training_theshold('fixed')* W(t, 'Skilled');
+ 183  training_constraint_semiskilled_workforce(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= W(t, 'Semi-skilled')+ Train(t, 'Unskilled', 'Semi-skilled');
+ 184   
+ 185  * demotion constraints
+ 186  demote_constraint_semiskilled(t, s, s).. Demote(t, 'Semi-skilled', 'Unskilled')=l= W(t, 'Semi-skilled');
+ 187  demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demote(t, 'Skilled', 'Unskilled')=l= W(t, 'Skilled');
  188   
- 189  * lay off ogjective for the first part
- 190  layoff.. Z_first=e= sum((t, s), L(t, s));
- 191   
- 192  model testmodel /
+ 189   
+ 190   
+ 191  * lay off ogjective for the first part
+ 192  layoff.. Z_first=e= sum((t, s), L(t, s));
  193   
- 194  *    Workforce_given,
- 195      Workforce_constraint,
- 196   
- 197      State_variable_unskilled,
- 198      State_variable_semiskilled,
- 199      State_variable_skilled,
- 200   
- 201      demote_constraint_semiskilled,
- 202      demote_constraint_skilled,
- 203      training_constraint_semiskilled_limit,
- 204      training_constraint_semiskilled_workforce,
- 205      training_constraint_unskilled_limit,
- 206      training_constraint_unskilled_workforce,
- 207   
- 208  *    Hiring_constraint_normal,
- 209      Hiring_constraint_part,
- 210      Hiring_constraint_over,
- 211      layoff_constraint,
- 212   
- 213      layoff
+ 194  model testmodel /
+ 195   
+ 196      Workforce_given,
+ 197      Workforce_constraint,
+ 198   
+ 199      State_variable_unskilled,
+ 200      State_variable_semiskilled,
+ 201      State_variable_skilled,
+ 202   
+ 203      demote_constraint_semiskilled,
+ 204      demote_constraint_skilled,
+ 205      training_constraint_semiskilled_limit,
+ 206      training_constraint_semiskilled_workforce,
+ 207      training_constraint_unskilled_limit,
+ 208      training_constraint_unskilled_workforce,
+ 209   
+ 210      Hiring_constraint_normal,
+ 211      Hiring_constraint_part,
+ 212      Hiring_constraint_over,
+ 213      layoff_constraint,
  214   
- 215  /
+ 215      layoff
  216   
- 217  *   Workforce_given,
- 218   
+ 217  /
+ 218  ;
  219   
- 220   
+ 220  solve testmodel using mip minimizing Z_first;
  221   
- 222  ;
- 223  solve testmodel using lp minimizing Z_first;
- 224   
- 225  display demand_table;
- 226  display churn_table;
- 227  display hiring_limit;
- 228  display training_limit;
- 229  display training_theshold;
- 230  display overhiring_limit;
- 231  display parttime_limit;
- 232   
+ 222  display demand_table;
+ 223  display churn_table;
+ 224  display hiring_limit;
+ 225  display training_limit;
+ 226  display training_theshold;
+ 227  display overhiring_limit;
+ 228  display parttime_limit;
+ 229   
+ 230   
+ 231  W.l(t, s)$ (W.l(t, s) eq 0)= eps;
+ 232  display W.l;
  233   
- 234  W.l(t, s)$ (W.l(t, s) eq 0)= eps;
- 235  display W.l;
+ 234  H.l(t, s)$ (H.l(t, s) eq 0)= eps;
+ 235  display H.l;
  236   
- 237  H.l(t, s)$ (H.l(t, s) eq 0)= eps;
- 238  display H.l;
+ 237  O.l(t, s)$ (O.l(t, s) eq 0)= eps;
+ 238  display O.l;
  239   
- 240  O.l(t, s)$ (O.l(t, s) eq 0)= eps;
- 241  display O.l;
+ 240  L.l(t, s)$ (L.l(t, s) eq 0)= eps
+ 241  display L.l;
  242   
- 243  L.l(t, s)$ (L.l(t, s) eq 0)= eps
- 244  display L.l;
+ 243  Train.l(t, s, s)$ (Train.l(t, s, s) eq 0)= eps;
+ 244  display Train.l;
  245   
- 246  Train.l(t, s, s)$ (Train.l(t, s, s) eq 0)= eps;
- 247  display Train.l;
+ 246  Demote.l(t, s, s)$ (Demote.l(t, s, s) eq 0)= eps;
+ 247  display Demote.l;
  248   
- 249  Demote.l(t, s, s)$ (Demote.l(t, s, s) eq 0)= eps;
- 250  display Demote.l;
+ 249  P.l(t, s)$ (P.l(t, s) eq 0)= eps;
+ 250  display P.l;
  251   
- 252  P.l(t, s)$ (P.l(t, s) eq 0)= eps;
- 253  display P.l;
- 254   
- 255  execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
- 256  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';
- 257  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8';
- 258  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=p.l rng=Results!B14';
- 259  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=L.l rng=Results!B20';
- 260  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=O.l rng=Results!B26';
- 261  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Train.l rng=Results!B32';
- 262  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Demote.l rng=Results!B50';
+ 252  execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
+ 253  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';
+ 254  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8';
+ 255  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=p.l rng=Results!B14';
+ 256  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=L.l rng=Results!B20';
+ 257  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=O.l rng=Results!B26';
+ 258  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Train.l rng=Results!B32';
+ 259  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Demote.l rng=Results!B50';
+ 260   
+ 261   
+ 262   
  263   
- 264   
- 265   
- 266   
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 2
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Include File Summary
 
@@ -268,30 +265,41 @@ Include File Summary
    SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
 
      1        1 INPUT          0       0  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-     2       15 CALL           1      15  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
-     3       16 GDXIN          1      16  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     4       21 CALL           1      21  gdxxrw.exe Pahse2_Data_OR2.xlsx par=churn_table rng=W!B2:E4 rdim=1 cdim=1
-     5       22 GDXIN          1      22  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     6       28 CALL           1      28  gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
-     7       29 GDXIN          1      29  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     8       34 CALL           1      34  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!D4 cdim=1
-     9       35 GDXIN          1      35  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    10       40 CALL           1      40  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!D7 cdim=1
-    11       41 GDXIN          1      41  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    12       46 CALL           1      46  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
-    13       47 GDXIN          1      47  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    14       52 CALL           1      52  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!B5 cdim=1
-    15       53 GDXIN          1      53  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    16       58 CALL           1      58  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
-    17       59 GDXIN          1      59  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    18       64 CALL           1      64  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!B5 cdim=1
-    19       65 GDXIN          1      65  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     2       17 CALL           1      17  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
+     3       18 GDXIN          1      18  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     4       23 CALL           1      23  gdxxrw.exe Pahse2_Data_OR2.xlsx par=churn_table rng=W!B2:E4 rdim=1 cdim=1
+     5       24 GDXIN          1      24  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     6       30 CALL           1      30  gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
+     7       31 GDXIN          1      31  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     8       36 CALL           1      36  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!D4 cdim=1
+     9       37 GDXIN          1      37  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    10       42 CALL           1      42  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!D7 cdim=1
+    11       43 GDXIN          1      43  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    12       48 CALL           1      48  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
+    13       49 GDXIN          1      49  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    14       54 CALL           1      54  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!B5 cdim=1
+    15       55 GDXIN          1      55  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    16       60 CALL           1      60  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
+    17       61 GDXIN          1      61  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    18       66 CALL           1      66  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!B5 cdim=1
+    19       67 GDXIN          1      67  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 
 
-COMPILATION TIME     =        5.234 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 3
+COMPILATION TIME     =        5.203 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Equation Listing    SOLVE testmodel Using LP From line 223
+Equation Listing    SOLVE testmodel Using MIP From line 220
+
+
+---- Workforce_given  =E=  limit for given workforce for skill s at year 0 (1.4.1)
+
+Workforce_given(0,Unskilled)..  W(0,Unskilled) =E= 2000 ; (LHS = 0, INFES = 2000 ****)
+     
+Workforce_given(0,Semi-skilled)..  W(0,Semi-skilled) =E= 1500 ; (LHS = 0, INFES = 1500 ****)
+     
+Workforce_given(0,Skilled)..  W(0,Skilled) =E= 1000 ; (LHS = 0, INFES = 1000 ****)
+     
+REMAINING 9 ENTRIES SKIPPED
 
 
 ---- Workforce_constraint  =G=  limit for workforce for skill s at year t (1.4.1)
@@ -307,36 +315,30 @@ REMAINING 9 ENTRIES SKIPPED
 
 ---- State_variable_unskilled  =E=  state of workforce for skill s at year t (1.4.2)
 
-State_variable_unskilled(0,Unskilled)..  W(0,Unskilled) =E= 0 ; (LHS = 0)
-     
 State_variable_unskilled(1,Unskilled)..  - 0.75*H(0,Unskilled) + L(0,Unskilled) - 0.75*O(0,Unskilled) + Train(0,Unskilled,Semi-skilled) - 0.5*Demote(0,Semi-skilled,Unskilled) - 0.5*Demote(0,Skilled,Unskilled) - 0.9*W(0,Unskilled) + W(1,Unskilled) =E= 0 ; (LHS = 0)
      
 State_variable_unskilled(2,Unskilled)..  - 0.75*H(1,Unskilled) + L(1,Unskilled) - 0.75*O(1,Unskilled) + Train(1,Unskilled,Semi-skilled) - 0.5*Demote(1,Semi-skilled,Unskilled) - 0.5*Demote(1,Skilled,Unskilled) - 0.9*W(1,Unskilled) + W(2,Unskilled) =E= 0 ; (LHS = 0)
      
-REMAINING ENTRY SKIPPED
-
+State_variable_unskilled(3,Unskilled)..  - 0.75*H(2,Unskilled) + L(2,Unskilled) - 0.75*O(2,Unskilled) + Train(2,Unskilled,Semi-skilled) - 0.5*Demote(2,Semi-skilled,Unskilled) - 0.5*Demote(2,Skilled,Unskilled) - 0.9*W(2,Unskilled) + W(3,Unskilled) =E= 0 ; (LHS = 0)
+     
 
 ---- State_variable_semiskilled  =E=  state of workforce for skill s at year t (1.4.2)
 
-State_variable_semiskilled(0,Semi-skilled)..  W(0,Semi-skilled) =E= 0 ; (LHS = 0)
-     
 State_variable_semiskilled(1,Semi-skilled)..  - 0.8*H(0,Semi-skilled) + L(0,Semi-skilled) - 0.8*O(0,Semi-skilled) - Train(0,Unskilled,Semi-skilled) + Train(0,Semi-skilled,Skilled) + Demote(0,Semi-skilled,Unskilled) - 0.5*Demote(0,Skilled,Semi-skilled) - 0.95*W(0,Semi-skilled) + W(1,Semi-skilled) =E= 0 ; (LHS = 0)
      
 State_variable_semiskilled(2,Semi-skilled)..  - 0.8*H(1,Semi-skilled) + L(1,Semi-skilled) - 0.8*O(1,Semi-skilled) - Train(1,Unskilled,Semi-skilled) + Train(1,Semi-skilled,Skilled) + Demote(1,Semi-skilled,Unskilled) - 0.5*Demote(1,Skilled,Semi-skilled) - 0.95*W(1,Semi-skilled) + W(2,Semi-skilled) =E= 0 ; (LHS = 0)
      
-REMAINING ENTRY SKIPPED
-
+State_variable_semiskilled(3,Semi-skilled)..  - 0.8*H(2,Semi-skilled) + L(2,Semi-skilled) - 0.8*O(2,Semi-skilled) - Train(2,Unskilled,Semi-skilled) + Train(2,Semi-skilled,Skilled) + Demote(2,Semi-skilled,Unskilled) - 0.5*Demote(2,Skilled,Semi-skilled) - 0.95*W(2,Semi-skilled) + W(3,Semi-skilled) =E= 0 ; (LHS = 0)
+     
 
 ---- State_variable_skilled  =E=  state of workforce for skill s at year t (1.4.2)
 
-State_variable_skilled(0,Skilled)..  W(0,Skilled) =E= 0 ; (LHS = 0)
-     
 State_variable_skilled(1,Skilled)..  - 0.9*H(0,Skilled) + L(0,Skilled) - 0.9*O(0,Skilled) - Train(0,Semi-skilled,Skilled) + Demote(0,Skilled,Unskilled) + Demote(0,Skilled,Semi-skilled) - 0.95*W(0,Skilled) + W(1,Skilled) =E= 0 ; (LHS = 0)
      
 State_variable_skilled(2,Skilled)..  - 0.9*H(1,Skilled) + L(1,Skilled) - 0.9*O(1,Skilled) - Train(1,Semi-skilled,Skilled) + Demote(1,Skilled,Unskilled) + Demote(1,Skilled,Semi-skilled) - 0.95*W(1,Skilled) + W(2,Skilled) =E= 0 ; (LHS = 0)
      
-REMAINING ENTRY SKIPPED
-
+State_variable_skilled(3,Skilled)..  - 0.9*H(2,Skilled) + L(2,Skilled) - 0.9*O(2,Skilled) - Train(2,Semi-skilled,Skilled) + Demote(2,Skilled,Unskilled) + Demote(2,Skilled,Semi-skilled) - 0.95*W(2,Skilled) + W(3,Skilled) =E= 0 ; (LHS = 0)
+     
 
 ---- demote_constraint_semiskilled  =L=  limit for demote from semiskikk at year t (1.4.6)
 
@@ -404,6 +406,17 @@ training_constraint_unskilled_workforce(0,Skilled,Skilled)..  Train(0,Unskilled,
 REMAINING 9 ENTRIES SKIPPED
 
 
+---- Hiring_constraint_normal  =L=  limit for hiring for skill s at year t (1.4.3)
+
+Hiring_constraint_normal(0,Unskilled)..  H(0,Unskilled) =L= 500 ; (LHS = 0)
+     
+Hiring_constraint_normal(0,Semi-skilled)..  H(0,Semi-skilled) =L= 800 ; (LHS = 0)
+     
+Hiring_constraint_normal(0,Skilled)..  H(0,Skilled) =L= 500 ; (LHS = 0)
+     
+REMAINING 9 ENTRIES SKIPPED
+
+
 ---- Hiring_constraint_part  =L=  limit for part time hiring at year t (1.4.3)
 
 Hiring_constraint_part(0)..  P(0,Unskilled) + P(0,Semi-skilled) + P(0,Skilled) =L= 50 ; (LHS = 0)
@@ -441,9 +454,9 @@ REMAINING 9 ENTRIES SKIPPED
 
 layoff..  - L(0,Unskilled) - L(0,Semi-skilled) - L(0,Skilled) - L(1,Unskilled) - L(1,Semi-skilled) - L(1,Skilled) - L(2,Unskilled) - L(2,Semi-skilled) - L(2,Skilled) - L(3,Unskilled) - L(3,Semi-skilled) - L(3,Skilled) + Z_first =E= 0 ; (LHS = 0)
      
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 4
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Column Listing      SOLVE testmodel Using LP From line 223
+Column Listing      SOLVE testmodel Using MIP From line 220
 
 
 ---- H  hiring for skill s at year t
@@ -451,16 +464,19 @@ Column Listing      SOLVE testmodel Using LP From line 223
 H(0,Unskilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
        -0.75    State_variable_unskilled(1,Unskilled)
+        1       Hiring_constraint_normal(0,Unskilled)
 
 H(0,Semi-skilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
        -0.8     State_variable_semiskilled(1,Semi-skilled)
+        1       Hiring_constraint_normal(0,Semi-skilled)
 
 H(0,Skilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
        -0.9     State_variable_skilled(1,Skilled)
+        1       Hiring_constraint_normal(0,Skilled)
 
-REMAINING 6 ENTRIES SKIPPED
+REMAINING 9 ENTRIES SKIPPED
 
 ---- P  parttime for skill s at year t
 
@@ -597,8 +613,11 @@ REMAINING 9 ENTRIES SKIPPED
 
 W(0,Unskilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       Workforce_given(0,Unskilled)
+        1       Workforce_given(1,Unskilled)
+        1       Workforce_given(2,Unskilled)
+        1       Workforce_given(3,Unskilled)
         1       Workforce_constraint(0,Unskilled)
-        1       State_variable_unskilled(0,Unskilled)
        -0.9     State_variable_unskilled(1,Unskilled)
        -1       training_constraint_unskilled_workforce(0,Unskilled,Unskilled)
        -1       training_constraint_unskilled_workforce(0,Semi-skilled,Semi-skilled)
@@ -607,8 +626,11 @@ W(0,Unskilled)
 
 W(0,Semi-skilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       Workforce_given(0,Semi-skilled)
+        1       Workforce_given(1,Semi-skilled)
+        1       Workforce_given(2,Semi-skilled)
+        1       Workforce_given(3,Semi-skilled)
         1       Workforce_constraint(0,Semi-skilled)
-        1       State_variable_semiskilled(0,Semi-skilled)
        -0.95    State_variable_semiskilled(1,Semi-skilled)
        -1       demote_constraint_semiskilled(0,Unskilled,Unskilled)
        -1       demote_constraint_semiskilled(0,Semi-skilled,Semi-skilled)
@@ -620,8 +642,11 @@ W(0,Semi-skilled)
 
 W(0,Skilled)
                 (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+        1       Workforce_given(0,Skilled)
+        1       Workforce_given(1,Skilled)
+        1       Workforce_given(2,Skilled)
+        1       Workforce_given(3,Skilled)
         1       Workforce_constraint(0,Skilled)
-        1       State_variable_skilled(0,Skilled)
        -0.95    State_variable_skilled(1,Skilled)
        -1       demote_constraint_skilled(0,Unskilled,Unskilled)
        -1       demote_constraint_skilled(0,Semi-skilled,Semi-skilled)
@@ -639,9 +664,9 @@ Z_first
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       layoff
 
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 5
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Range Statistics    SOLVE testmodel Using LP From line 223
+Range Statistics    SOLVE testmodel Using MIP From line 220
 
 
 RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
@@ -650,172 +675,197 @@ RHS       [min, max] : [ 5.000E+01, 2.500E+03] - Zero values observed as well
 Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 Matrix    [min, max] : [ 2.500E-01, 1.000E+00]
 
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 6
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Model Statistics    SOLVE testmodel Using LP From line 223
+Model Statistics    SOLVE testmodel Using MIP From line 220
 
 
 MODEL STATISTICS
 
-BLOCKS OF EQUATIONS          14     SINGLE EQUATIONS          117
-BLOCKS OF VARIABLES           8     SINGLE VARIABLES           78
-NON ZERO ELEMENTS           319
+BLOCKS OF EQUATIONS          16     SINGLE EQUATIONS          138
+BLOCKS OF VARIABLES           8     SINGLE VARIABLES           81
+NON ZERO ELEMENTS           340     DISCRETE VARIABLES         80
 
 
-GENERATION TIME      =        0.016 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 7
+GENERATION TIME      =        0.000 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Solution Report     SOLVE testmodel Using LP From line 223
+Solution Report     SOLVE testmodel Using MIP From line 220
 
 
                S O L V E      S U M M A R Y
 
      MODEL   testmodel           OBJECTIVE  Z_first
-     TYPE    LP                  DIRECTION  MINIMIZE
-     SOLVER  CPLEX               FROM LINE  223
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  220
 
 **** SOLVER STATUS     1 Normal Completion
 **** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE                0.0000
 
- RESOURCE USAGE, LIMIT          0.000 10000000000.000
- ITERATION COUNT, LIMIT         0    2147483647
+ RESOURCE USAGE, LIMIT          0.594 10000000000.000
+ ITERATION COUNT, LIMIT      2993    2147483647
 --- *** This solver runs with a demo license. No commercial use.
 --- GMO setup time: 0.00s
---- GMO memory 0.52 Mb (peak 0.52 Mb)
+--- GMO memory 0.53 Mb (peak 0.53 Mb)
 --- Dictionary memory 0.00 Mb
 --- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.02 Mb)
 --- Starting Cplex
 
 
---- LP status (1): optimal.
---- Cplex Time: 0.00sec (det. 0.11 ticks)
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.55sec (det. 57.01 ticks)
+
+--- Fixing integer variables and solving final LP...
 
 
-Optimal solution found
-Objective:            0.000000
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.02sec (det. 0.10 ticks)
 
+
+Proven optimal solution
+MIP Solution:            0.000000    (2993 iterations, 1368 nodes)
+Final Solve:             0.000000    (0 iterations)
+
+Best possible:           0.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+---- EQU Workforce_given  limit for given workforce for skill s at year 0 (1.4.1)
+
+                      LOWER          LEVEL          UPPER         MARGINAL
+
+0.Unskilled         2000.0000      2000.0000      2000.0000          .          
+0.Semi-skilled      1500.0000      1500.0000      1500.0000          .          
+0.Skilled           1000.0000      1000.0000      1000.0000          .          
+1.Unskilled         2000.0000      2000.0000      2000.0000          .          
+1.Semi-skilled      1500.0000      1500.0000      1500.0000          .          
+1.Skilled           1000.0000      1000.0000      1000.0000          .          
+2.Unskilled         2000.0000      2000.0000      2000.0000          .          
+2.Semi-skilled      1500.0000      1500.0000      1500.0000          .          
+2.Skilled           1000.0000      1000.0000      1000.0000          .          
+3.Unskilled         2000.0000      2000.0000      2000.0000          .          
+3.Semi-skilled      1500.0000      1500.0000      1500.0000          .          
+3.Skilled           1000.0000      1000.0000      1000.0000          .          
 
 ---- EQU Workforce_constraint  limit for workforce for skill s at year t (1.4.1)
 
                       LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled             .              .            +INF             .          
-0.Semi-skilled          .              .            +INF             .          
-0.Skilled               .              .            +INF             .          
-1.Unskilled         1000.0000      1000.0000        +INF            EPS         
-1.Semi-skilled      1400.0000      1400.0000        +INF            EPS         
-1.Skilled           1000.0000      1000.0000        +INF            EPS         
-2.Unskilled          500.0000       700.0000        +INF             .          
-2.Semi-skilled      2000.0000      2000.0000        +INF            EPS         
-2.Skilled           1500.0000      1500.0000        +INF            EPS         
-3.Unskilled             .           630.0000        +INF             .          
-3.Semi-skilled      2500.0000      2500.0000        +INF            EPS         
-3.Skilled           2000.0000      2000.0000        +INF            EPS         
+0.Unskilled             .          2000.0000        +INF             .          
+0.Semi-skilled          .          1500.0000        +INF             .          
+0.Skilled               .          1000.0000        +INF             .          
+1.Unskilled         1000.0000      1695.0000        +INF             .          
+1.Semi-skilled      1400.0000      1400.0000        +INF             .          
+1.Skilled           1000.0000      1000.0000        +INF             .          
+2.Unskilled          500.0000      1360.0000        +INF             .          
+2.Semi-skilled      2000.0000      2000.0000        +INF             .          
+2.Skilled           1500.0000      1500.0000        +INF             .          
+3.Unskilled             .          1230.0000        +INF             .          
+3.Semi-skilled      2500.0000      2540.0000        +INF             .          
+3.Skilled           2000.0000      2001.0000        +INF             .          
 
 ---- EQU State_variable_unskilled  state of workforce for skill s at year t (1.4.2)
 
                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled          .              .              .              .          
-1.Unskilled          .              .              .             EPS         
-2.Unskilled          .              .              .             EPS         
-3.Unskilled          .              .              .             EPS         
+1.Unskilled          .              .              .              .          
+2.Unskilled          .              .              .              .          
+3.Unskilled          .              .              .              .          
 
 ---- EQU State_variable_semiskilled  state of workforce for skill s at year t (1.4.2)
 
                       LOWER          LEVEL          UPPER         MARGINAL
 
-0.Semi-skilled          .              .              .              .          
-1.Semi-skilled          .              .              .             EPS         
-2.Semi-skilled          .              .              .             EPS         
-3.Semi-skilled          .              .              .             EPS         
+1.Semi-skilled          .              .              .              .          
+2.Semi-skilled          .              .              .              .          
+3.Semi-skilled          .              .              .              .          
 
 ---- EQU State_variable_skilled  state of workforce for skill s at year t (1.4.2)
 
                  LOWER          LEVEL          UPPER         MARGINAL
 
-0.Skilled          .              .              .              .          
-1.Skilled          .              .              .             EPS         
-2.Skilled          .              .              .             EPS         
-3.Skilled          .              .              .             EPS         
+1.Skilled          .              .              .              .          
+2.Skilled          .              .              .              .          
+3.Skilled          .       -4.54747E-13          .              .          
 
 ---- EQU demote_constraint_semiskilled  limit for demote from semiskikk at year t (1.4.6)
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Unskilled           -INF             .              .              .          
-0.Semi-skilled.Semi-skilled        -INF             .              .              .          
-0.Skilled     .Skilled             -INF             .              .              .          
+0.Unskilled   .Unskilled           -INF        -1316.0000          .              .          
+0.Semi-skilled.Semi-skilled        -INF        -1316.0000          .              .          
+0.Skilled     .Skilled             -INF        -1316.0000          .              .          
 1.Unskilled   .Unskilled           -INF        -1400.0000          .              .          
 1.Semi-skilled.Semi-skilled        -INF        -1400.0000          .              .          
 1.Skilled     .Skilled             -INF        -1400.0000          .              .          
 2.Unskilled   .Unskilled           -INF        -2000.0000          .              .          
 2.Semi-skilled.Semi-skilled        -INF        -2000.0000          .              .          
 2.Skilled     .Skilled             -INF        -2000.0000          .              .          
-3.Unskilled   .Unskilled           -INF        -2500.0000          .              .          
-3.Semi-skilled.Semi-skilled        -INF        -2500.0000          .              .          
-3.Skilled     .Skilled             -INF        -2500.0000          .              .          
+3.Unskilled   .Unskilled           -INF        -2540.0000          .              .          
+3.Semi-skilled.Semi-skilled        -INF        -2540.0000          .              .          
+3.Skilled     .Skilled             -INF        -2540.0000          .              .          
 
 ---- EQU demote_constraint_skilled  limit for demote from skilled at year t (1.4.6)
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Unskilled           -INF             .              .              .          
-0.Semi-skilled.Semi-skilled        -INF             .              .              .          
-0.Skilled     .Skilled             -INF             .              .              .          
+0.Unskilled   .Unskilled           -INF        -1000.0000          .              .          
+0.Semi-skilled.Semi-skilled        -INF        -1000.0000          .              .          
+0.Skilled     .Skilled             -INF        -1000.0000          .              .          
 1.Unskilled   .Unskilled           -INF        -1000.0000          .              .          
 1.Semi-skilled.Semi-skilled        -INF        -1000.0000          .              .          
 1.Skilled     .Skilled             -INF        -1000.0000          .              .          
 2.Unskilled   .Unskilled           -INF        -1500.0000          .              .          
 2.Semi-skilled.Semi-skilled        -INF        -1500.0000          .              .          
 2.Skilled     .Skilled             -INF        -1500.0000          .              .          
-3.Unskilled   .Unskilled           -INF        -2000.0000          .              .          
-3.Semi-skilled.Semi-skilled        -INF        -2000.0000          .              .          
-3.Skilled     .Skilled             -INF        -2000.0000          .              .          
+3.Unskilled   .Unskilled           -INF        -2001.0000          .              .          
+3.Semi-skilled.Semi-skilled        -INF        -2001.0000          .              .          
+3.Skilled     .Skilled             -INF        -2001.0000          .              .          
 
 ---- EQU training_constraint_semiskilled_limit  training limit for training from semiskilled to skilled at year t (1.4.5)
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Unskilled           -INF             .              .              .          
-0.Semi-skilled.Semi-skilled        -INF             .              .              .          
-0.Skilled     .Skilled             -INF             .              .              .          
-1.Unskilled   .Unskilled           -INF         -250.0000          .              .          
-1.Semi-skilled.Semi-skilled        -INF         -250.0000          .              .          
-1.Skilled     .Skilled             -INF         -250.0000          .              .          
+0.Unskilled   .Unskilled           -INF         -209.0000          .              .          
+0.Semi-skilled.Semi-skilled        -INF         -209.0000          .              .          
+0.Skilled     .Skilled             -INF         -209.0000          .              .          
+1.Unskilled   .Unskilled           -INF         -240.0000          .              .          
+1.Semi-skilled.Semi-skilled        -INF         -240.0000          .              .          
+1.Skilled     .Skilled             -INF         -240.0000          .              .          
 2.Unskilled   .Unskilled           -INF         -375.0000          .              .          
 2.Semi-skilled.Semi-skilled        -INF         -375.0000          .              .          
 2.Skilled     .Skilled             -INF         -375.0000          .              .          
-3.Unskilled   .Unskilled           -INF         -500.0000          .              .          
-3.Semi-skilled.Semi-skilled        -INF         -500.0000          .              .          
-3.Skilled     .Skilled             -INF         -500.0000          .              .          
+3.Unskilled   .Unskilled           -INF         -500.2500          .              .          
+3.Semi-skilled.Semi-skilled        -INF         -500.2500          .              .          
+3.Skilled     .Skilled             -INF         -500.2500          .              .          
 
 ---- EQU training_constraint_semiskilled_workforce  workforce limit for training from semiskilled to skilled at year t (1.4.5)
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Unskilled           -INF             .              .              .          
-0.Semi-skilled.Semi-skilled        -INF             .              .              .          
-0.Skilled     .Skilled             -INF             .              .              .          
-1.Unskilled   .Unskilled           -INF        -1600.0000          .              .          
-1.Semi-skilled.Semi-skilled        -INF        -1600.0000          .              .          
-1.Skilled     .Skilled             -INF        -1600.0000          .              .          
+0.Unskilled   .Unskilled           -INF        -1659.0000          .              .          
+0.Semi-skilled.Semi-skilled        -INF        -1659.0000          .              .          
+0.Skilled     .Skilled             -INF        -1659.0000          .              .          
+1.Unskilled   .Unskilled           -INF        -1590.0000          .              .          
+1.Semi-skilled.Semi-skilled        -INF        -1590.0000          .              .          
+1.Skilled     .Skilled             -INF        -1590.0000          .              .          
 2.Unskilled   .Unskilled           -INF        -2000.0000          .              .          
 2.Semi-skilled.Semi-skilled        -INF        -2000.0000          .              .          
 2.Skilled     .Skilled             -INF        -2000.0000          .              .          
-3.Unskilled   .Unskilled           -INF        -2500.0000          .              .          
-3.Semi-skilled.Semi-skilled        -INF        -2500.0000          .              .          
-3.Skilled     .Skilled             -INF        -2500.0000          .              .          
+3.Unskilled   .Unskilled           -INF        -2540.0000          .              .          
+3.Semi-skilled.Semi-skilled        -INF        -2540.0000          .              .          
+3.Skilled     .Skilled             -INF        -2540.0000          .              .          
 
 ---- EQU training_constraint_unskilled_limit  training limit for training from unslikked to semi-skilled at year t (1.4.5)
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Unskilled           -INF             .           200.0000          .          
-0.Semi-skilled.Semi-skilled        -INF             .           200.0000          .          
-0.Skilled     .Skilled             -INF             .           200.0000          .          
-1.Unskilled   .Unskilled           -INF          200.0000       200.0000         EPS         
+0.Unskilled   .Unskilled           -INF          200.0000       200.0000          .          
+0.Semi-skilled.Semi-skilled        -INF          200.0000       200.0000          .          
+0.Skilled     .Skilled             -INF          200.0000       200.0000          .          
+1.Unskilled   .Unskilled           -INF          200.0000       200.0000          .          
 1.Semi-skilled.Semi-skilled        -INF          200.0000       200.0000          .          
 1.Skilled     .Skilled             -INF          200.0000       200.0000          .          
 2.Unskilled   .Unskilled           -INF             .           200.0000          .          
@@ -829,18 +879,35 @@ Objective:            0.000000
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Unskilled           -INF             .              .              .          
-0.Semi-skilled.Semi-skilled        -INF             .              .              .          
-0.Skilled     .Skilled             -INF             .              .              .          
-1.Unskilled   .Unskilled           -INF         -800.0000          .              .          
-1.Semi-skilled.Semi-skilled        -INF         -800.0000          .              .          
-1.Skilled     .Skilled             -INF         -800.0000          .              .          
-2.Unskilled   .Unskilled           -INF         -700.0000          .              .          
-2.Semi-skilled.Semi-skilled        -INF         -700.0000          .              .          
-2.Skilled     .Skilled             -INF         -700.0000          .              .          
-3.Unskilled   .Unskilled           -INF         -630.0000          .              .          
-3.Semi-skilled.Semi-skilled        -INF         -630.0000          .              .          
-3.Skilled     .Skilled             -INF         -630.0000          .              .          
+0.Unskilled   .Unskilled           -INF        -1800.0000          .              .          
+0.Semi-skilled.Semi-skilled        -INF        -1800.0000          .              .          
+0.Skilled     .Skilled             -INF        -1800.0000          .              .          
+1.Unskilled   .Unskilled           -INF        -1495.0000          .              .          
+1.Semi-skilled.Semi-skilled        -INF        -1495.0000          .              .          
+1.Skilled     .Skilled             -INF        -1495.0000          .              .          
+2.Unskilled   .Unskilled           -INF        -1360.0000          .              .          
+2.Semi-skilled.Semi-skilled        -INF        -1360.0000          .              .          
+2.Skilled     .Skilled             -INF        -1360.0000          .              .          
+3.Unskilled   .Unskilled           -INF        -1230.0000          .              .          
+3.Semi-skilled.Semi-skilled        -INF        -1230.0000          .              .          
+3.Skilled     .Skilled             -INF        -1230.0000          .              .          
+
+---- EQU Hiring_constraint_normal  limit for hiring for skill s at year t (1.4.3)
+
+                      LOWER          LEVEL          UPPER         MARGINAL
+
+0.Unskilled           -INF             .           500.0000          .          
+0.Semi-skilled        -INF             .           800.0000          .          
+0.Skilled             -INF           10.0000       500.0000          .          
+1.Unskilled           -INF           46.0000       500.0000          .          
+1.Semi-skilled        -INF          600.0000       800.0000          .          
+1.Skilled             -INF          500.0000       500.0000          .          
+2.Unskilled           -INF             .           500.0000          .          
+2.Semi-skilled        -INF          800.0000       800.0000          .          
+2.Skilled             -INF          500.0000       500.0000          .          
+3.Unskilled           -INF             .           500.0000          .          
+3.Semi-skilled        -INF             .           800.0000          .          
+3.Skilled             -INF             .           500.0000          .          
 
 ---- EQU Hiring_constraint_part  limit for part time hiring at year t (1.4.3)
 
@@ -855,27 +922,27 @@ Objective:            0.000000
 
          LOWER          LEVEL          UPPER         MARGINAL
 
-0        -INF          150.0000       150.0000         EPS         
-1        -INF          150.0000       150.0000         EPS         
-2        -INF             .           150.0000          .          
+0        -INF            4.0000       150.0000          .          
+1        -INF          100.0000       150.0000          .          
+2        -INF          148.0000       150.0000          .          
 3        -INF             .           150.0000          .          
 
 ---- EQU layoff_constraint  limit for layoff for skill s at year t (1.4.4)
 
                       LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled           -INF             .              .              .          
-0.Semi-skilled        -INF             .              .              .          
-0.Skilled             -INF             .              .              .          
-1.Unskilled           -INF        -1000.0000          .              .          
+0.Unskilled           -INF        -2000.0000          .              .          
+0.Semi-skilled        -INF        -1500.0000          .              .          
+0.Skilled             -INF        -1000.0000          .              .          
+1.Unskilled           -INF        -1695.0000          .              .          
 1.Semi-skilled        -INF        -1400.0000          .              .          
 1.Skilled             -INF        -1000.0000          .              .          
-2.Unskilled           -INF         -700.0000          .              .          
+2.Unskilled           -INF        -1360.0000          .              .          
 2.Semi-skilled        -INF        -2000.0000          .              .          
 2.Skilled             -INF        -1500.0000          .              .          
-3.Unskilled           -INF         -630.0000          .              .          
-3.Semi-skilled        -INF        -2500.0000          .              .          
-3.Skilled             -INF        -2000.0000          .              .          
+3.Unskilled           -INF        -1230.0000          .              .          
+3.Semi-skilled        -INF        -2540.0000          .              .          
+3.Skilled             -INF        -2001.0000          .              .          
 
                            LOWER          LEVEL          UPPER         MARGINAL
 
@@ -887,15 +954,18 @@ Objective:            0.000000
 
                       LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled             .          1333.3333        +INF             .          
-0.Semi-skilled          .          1750.0000        +INF             .          
-0.Skilled               .           961.1111        +INF             .          
-1.Unskilled             .              .            +INF            EPS         
-1.Semi-skilled          .           587.5000        +INF             .          
-1.Skilled               .           461.1111        +INF             .          
+0.Unskilled             .              .            +INF            EPS         
+0.Semi-skilled          .              .            +INF            EPS         
+0.Skilled               .            10.0000        +INF            EPS         
+1.Unskilled             .            46.0000        +INF            EPS         
+1.Semi-skilled          .           600.0000        +INF            EPS         
+1.Skilled               .           500.0000        +INF            EPS         
 2.Unskilled             .              .            +INF            EPS         
-2.Semi-skilled          .           750.0000        +INF             .          
-2.Skilled               .           638.8889        +INF             .          
+2.Semi-skilled          .           800.0000        +INF            EPS         
+2.Skilled               .           500.0000        +INF            EPS         
+3.Unskilled             .              .            +INF            EPS         
+3.Semi-skilled          .              .            +INF            EPS         
+3.Skilled               .              .            +INF            EPS         
 
 ---- VAR P  parttime for skill s at year t
 
@@ -935,15 +1005,15 @@ Objective:            0.000000
 
                       LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled             .              .            +INF            EPS         
+0.Unskilled             .             4.0000        +INF            EPS         
 0.Semi-skilled          .              .            +INF            EPS         
-0.Skilled               .           150.0000        +INF             .          
+0.Skilled               .              .            +INF            EPS         
 1.Unskilled             .              .            +INF            EPS         
 1.Semi-skilled          .              .            +INF            EPS         
-1.Skilled               .           150.0000        +INF             .          
-2.Unskilled             .              .            +INF            EPS         
+1.Skilled               .           100.0000        +INF            EPS         
+2.Unskilled             .             8.0000        +INF            EPS         
 2.Semi-skilled          .              .            +INF            EPS         
-2.Skilled               .              .            +INF            EPS         
+2.Skilled               .           140.0000        +INF            EPS         
 3.Unskilled             .              .            +INF            EPS         
 3.Semi-skilled          .              .            +INF            EPS         
 3.Skilled               .              .            +INF            EPS         
@@ -952,10 +1022,10 @@ Objective:            0.000000
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled   .Semi-skilled          .              .            +INF            EPS         
-0.Semi-skilled.Skilled               .              .            +INF            EPS         
-1.Unskilled   .Semi-skilled          .           200.0000        +INF             .          
-1.Semi-skilled.Skilled               .              .            +INF            EPS         
+0.Unskilled   .Semi-skilled          .           200.0000        +INF            EPS         
+0.Semi-skilled.Skilled               .            41.0000        +INF            EPS         
+1.Unskilled   .Semi-skilled          .           200.0000        +INF            EPS         
+1.Semi-skilled.Skilled               .            10.0000        +INF            EPS         
 2.Unskilled   .Semi-skilled          .              .            +INF            EPS         
 2.Semi-skilled.Skilled               .              .            +INF            EPS         
 3.Unskilled   .Semi-skilled          .              .            +INF            EPS         
@@ -965,7 +1035,7 @@ Objective:            0.000000
 
                                    LOWER          LEVEL          UPPER         MARGINAL
 
-0.Semi-skilled.Unskilled             .              .            +INF            EPS         
+0.Semi-skilled.Unskilled             .           184.0000        +INF            EPS         
 0.Skilled     .Unskilled             .              .            +INF            EPS         
 0.Skilled     .Semi-skilled          .              .            +INF            EPS         
 1.Semi-skilled.Unskilled             .              .            +INF            EPS         
@@ -982,18 +1052,18 @@ Objective:            0.000000
 
                       LOWER          LEVEL          UPPER         MARGINAL
 
-0.Unskilled             .              .            +INF            EPS         
-0.Semi-skilled          .              .            +INF            EPS         
-0.Skilled               .              .            +INF            EPS         
-1.Unskilled             .          1000.0000        +INF             .          
-1.Semi-skilled          .          1400.0000        +INF             .          
-1.Skilled               .          1000.0000        +INF             .          
-2.Unskilled             .           700.0000        +INF             .          
-2.Semi-skilled          .          2000.0000        +INF             .          
-2.Skilled               .          1500.0000        +INF             .          
-3.Unskilled             .           630.0000        +INF             .          
-3.Semi-skilled          .          2500.0000        +INF             .          
-3.Skilled               .          2000.0000        +INF             .          
+0.Unskilled             .          2000.0000        +INF            EPS         
+0.Semi-skilled          .          1500.0000        +INF            EPS         
+0.Skilled               .          1000.0000        +INF            EPS         
+1.Unskilled             .          1695.0000        +INF            EPS         
+1.Semi-skilled          .          1400.0000        +INF            EPS         
+1.Skilled               .          1000.0000        +INF            EPS         
+2.Unskilled             .          1360.0000        +INF            EPS         
+2.Semi-skilled          .          2000.0000        +INF            EPS         
+2.Skilled               .          1500.0000        +INF            EPS         
+3.Unskilled             .          1230.0000        +INF            EPS         
+3.Semi-skilled          .          2540.0000        +INF            EPS         
+3.Skilled               .          2001.0000        +INF            EPS         
 
                            LOWER          LEVEL          UPPER         MARGINAL
 
@@ -1005,12 +1075,12 @@ Objective:            0.000000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 21:23:21 Page 8
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 8
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
 
-----    225 PARAMETER demand_table  
+----    222 PARAMETER demand_table  
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1020,7 +1090,7 @@ E x e c u t i o n
 3                2500.000    2000.000
 
 
-----    226 PARAMETER churn_table  
+----    223 PARAMETER churn_table  
 
               Unskilled  Semi-skil~     Skilled
 
@@ -1028,62 +1098,62 @@ New              25.000      20.000      10.000
 Experienced      10.000       5.000       5.000
 
 
-----    227 PARAMETER hiring_limit  
+----    224 PARAMETER hiring_limit  
 
 Unskilled    500.000,    Semi-skilled 800.000,    Skilled      500.000
 
 
-----    228 PARAMETER training_limit  
+----    225 PARAMETER training_limit  
 
 fixed 200.000
 
 
-----    229 PARAMETER training_theshold  
+----    226 PARAMETER training_theshold  
 
 fixed 0.250
 
 
-----    230 PARAMETER overhiring_limit  
+----    227 PARAMETER overhiring_limit  
 
 fixed 150.000
 
 
-----    231 PARAMETER parttime_limit  
+----    228 PARAMETER parttime_limit  
 
 fixed 50.000
 
 
-----    235 VARIABLE W.L  workforce for skill s at year t
+----    232 VARIABLE W.L  workforce for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
-0         EPS         EPS         EPS
-1    1000.000    1400.000    1000.000
-2     700.000    2000.000    1500.000
-3     630.000    2500.000    2000.000
+0    2000.000    1500.000    1000.000
+1    1695.000    1400.000    1000.000
+2    1360.000    2000.000    1500.000
+3    1230.000    2540.000    2001.000
 
 
-----    238 VARIABLE H.L  hiring for skill s at year t
+----    235 VARIABLE H.L  hiring for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
-0    1333.333    1750.000     961.111
-1         EPS     587.500     461.111
-2         EPS     750.000     638.889
+0         EPS         EPS      10.000
+1      46.000     600.000     500.000
+2         EPS     800.000     500.000
 3         EPS         EPS         EPS
 
 
-----    241 VARIABLE O.L  over-hire for skill s at year t
+----    238 VARIABLE O.L  over-hire for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
-0         EPS         EPS     150.000
-1         EPS         EPS     150.000
-2         EPS         EPS         EPS
+0       4.000         EPS         EPS
+1         EPS         EPS     100.000
+2       8.000         EPS     140.000
 3         EPS         EPS         EPS
 
 
-----    244 VARIABLE L.L  lay off for skill s at year t
+----    241 VARIABLE L.L  lay off for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1093,15 +1163,15 @@ fixed 50.000
 3         EPS         EPS         EPS
 
 
-----    247 VARIABLE Train.L  training from skill s1 to skill s2 at year t
+----    244 VARIABLE Train.L  training from skill s1 to skill s2 at year t
 
                  Unskilled  Semi-skil~     Skilled
 
-0.Unskilled            EPS
-0.Semi-skilled                     EPS
+0.Unskilled            EPS     200.000
+0.Semi-skilled                     EPS      41.000
 0.Skilled                                      EPS
 1.Unskilled            EPS     200.000
-1.Semi-skilled                     EPS
+1.Semi-skilled                     EPS      10.000
 1.Skilled                                      EPS
 2.Unskilled            EPS
 2.Semi-skilled                     EPS
@@ -1111,12 +1181,12 @@ fixed 50.000
 3.Skilled                                      EPS
 
 
-----    250 VARIABLE Demote.L  demoting from skill s1 to skill s2 at year t
+----    247 VARIABLE Demote.L  demoting from skill s1 to skill s2 at year t
 
                  Unskilled  Semi-skil~     Skilled
 
 0.Unskilled            EPS
-0.Semi-skilled                     EPS
+0.Semi-skilled     184.000         EPS
 0.Skilled                                      EPS
 1.Unskilled            EPS
 1.Semi-skilled                     EPS
@@ -1129,7 +1199,7 @@ fixed 50.000
 3.Skilled                                      EPS
 
 
-----    253 VARIABLE P.L  parttime for skill s at year t
+----    250 VARIABLE P.L  parttime for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1140,7 +1210,7 @@ fixed 50.000
 
 
 
-EXECUTION TIME       =        6.031 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+EXECUTION TIME       =        7.062 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
 
 
 USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
