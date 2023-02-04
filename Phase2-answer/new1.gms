@@ -8,7 +8,6 @@ s skills /Unskilled, Semi-skilled, Skilled/
 e experience level /New, Experienced/
 ;
 
-
 Parameter demand_table(t,s)
 $call gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
@@ -65,12 +64,31 @@ $load parttime_limit
 ;
 
 variables
-x(t, s) it is equal to parameters for testing
-z sum of x values;
+H(t, s) hiring for skill s at year t
+P(t, s) parttime for skill s at year t
+L(t, s) lay off for skill s at year t
+O(t, s) over-hire for skill s at year t
+
+Train(t, s, s) training from skill s1 to skill s2 at year t
+Demote(t, s, s) demoting from skill s1 to skill s2 at year t
+
+W(t ,s) workforce for skill s at year t
+
+Z_first total lay offs at all years for all skills
+Z_second total cost
+;
 
 Equations
-equalconts(t, s) just make those two equal
-test test_variables;
+
+Workforce_limit(t, s) limit for workforce for skill s at year t (1.4.1)
+State_variables(t, s) state of workforce for skill s at year t (1.4.2)
+Hiring_limit(t, s) limit for hiring for skill s at year t (1.4.3)
+layoff_limit(t, s) limit for layoff for skill s at year t (1.4.4)
+training_limit(t, s, s) limit for training between skills at year t (1.4.5)
+demote_limit(t, s, s) limit for demote between skills at year t (1.4.6)
+
+layoff objective function of the first part
+Cost objective function of the second part
 
 
 

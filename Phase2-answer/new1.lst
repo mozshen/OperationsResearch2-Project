@@ -1,4 +1,4 @@
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 1
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:47:12 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -12,52 +12,88 @@ C o m p i l a t i o n
    7  s skills /Unskilled, Semi-skilled, Skilled/
    8  e experience level /New, Experienced/
    9  ;
-  10   
-  11   
-  12  Parameter demand_table(t,s)
+  10  Alias(s, s1);
+  11  Alias(s, s2);
+  12   
+  13   
+  14  Parameter demand_table(t,s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  demand_table = 1:demand_table
-  16  ;
-  17   
-  18  Parameter churn_table(e,s)
+  18  ;
+  19   
+  20  Parameter churn_table(e,s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  churn_table = 1:churn_table
-  22  ;
-  23   
-  24   
-  25  Parameter hiring_limit(s)
+  24  ;
+  25   
+  26   
+  27  Parameter hiring_limit(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  hiring_limit = 1:hiring_limit
-  29  ;
-  30   
-  31  Parameter training_limit
+  31  ;
+  32   
+  33  Parameter training_limit
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  training_limit = 1:training_limit
-  35  ;
-  36   
-  37   
+  37  ;
   38   
-  39   
-  40  variables
-  41  x(t, s) it is equal to parameters for testing
-  42  z sum of x values;
-  43   
-  44  Equations
-  45  equalconts(t, s) just make those two equal
-  46  test test_variables;
-  47   
-  48   
-  49   
-  50  test.. z=e=sum((t, s), x(t, s));
-  51  equalconts(t, s).. x(t, s)=e= demand_table(t, s)
-  52   
-  53   
-  54  model testmodel /all/;
-  55  solve testmodel using lp minimizing z;
-  56  display x.l;
-  57   
-  58   
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 2
+  39  Parameter training_theshold
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  training_theshold = 1:training_theshold
+  43  ;
+  44   
+  45  Parameter over_hiring_cost(s)
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  over_hiring_cost = 1:over_hiring_cost
+  49  ;
+  50   
+  51  Parameter overhiring_limit
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  overhiring_limit = 1:overhiring_limit
+  55  ;
+  56   
+  57  Parameter parttime_cost(s)
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  parttime_cost = 1:parttime_cost
+  61  ;
+  62   
+  63  Parameter parttime_limit
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  parttime_limit = 1:parttime_limit
+  67  ;
+  68   
+  69  variables
+  70  H(t, s) hiring for skill s at year t
+  71  P(t, s) parttime for skill s at year t
+  72  L(t, s) lay off for skill s at year t
+  73  O(t, s) over-hire for skill s at year t
+  74  Train(t, s, s) training from skill s1 to skill s2 at year t
+  75  z sum of x values
+  76  ;
+  77   
+  78   
+  79  Equations
+  80  equalconts(t, s) just make those two equal
+  81  test test_variables;
+  82   
+  83   
+  84   
+  85  test.. z=e=sum((t, s), x(t, s));
+****                         $140
+**** 140  Unknown symbol
+  86  equalconts(t, s).. x(t, s)=e= demand_table(t, s)
+  87   
+  88   
+  89  model testmodel /all/;
+  90  solve testmodel using lp minimizing z;
+****                                       $257
+**** 257  Solve statement not checked because of previous errors
+  91  display x.l;
+  92   
+  93   
+
+**** 2 ERROR(S)   0 WARNING(S)
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:47:12 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Include File Summary
 
@@ -65,191 +101,27 @@ Include File Summary
    SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
 
      1        1 INPUT          0       0  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-     2       13 CALL           1      13  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
-     3       14 GDXIN          1      14  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     4       19 CALL           1      19  gdxxrw.exe Pahse2_Data_OR2.xlsx par=churn_table rng=W!B2:E4 rdim=1 cdim=1
-     5       20 GDXIN          1      20  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     6       26 CALL           1      26  gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
-     7       27 GDXIN          1      27  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     8       32 CALL           1      32  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!E5
-     9       33 GDXIN          1      33  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     2       15 CALL           1      15  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
+     3       16 GDXIN          1      16  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     4       21 CALL           1      21  gdxxrw.exe Pahse2_Data_OR2.xlsx par=churn_table rng=W!B2:E4 rdim=1 cdim=1
+     5       22 GDXIN          1      22  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     6       28 CALL           1      28  gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
+     7       29 GDXIN          1      29  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     8       34 CALL           1      34  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!E5
+     9       35 GDXIN          1      35  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    10       40 CALL           1      40  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!E6
+    11       41 GDXIN          1      41  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    12       46 CALL           1      46  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
+    13       47 GDXIN          1      47  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    14       52 CALL           1      52  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!C6
+    15       53 GDXIN          1      53  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    16       58 CALL           1      58  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
+    17       59 GDXIN          1      59  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    18       64 CALL           1      64  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!C5
+    19       65 GDXIN          1      65  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 
 
-COMPILATION TIME     =        2.797 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 3
-G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Equation Listing    SOLVE testmodel Using LP From line 55
-
-
----- equalconts  =E=  just make those two equal
-
-equalconts(0,Unskilled)..  x(0,Unskilled) =E= 2000 ; (LHS = 0, INFES = 2000 ****)
-     
-equalconts(0,Semi-skilled)..  x(0,Semi-skilled) =E= 1500 ; (LHS = 0, INFES = 1500 ****)
-     
-equalconts(0,Skilled)..  x(0,Skilled) =E= 1000 ; (LHS = 0, INFES = 1000 ****)
-     
-REMAINING 9 ENTRIES SKIPPED
-
-
----- test  =E=  test_variables
-
-test..  - x(0,Unskilled) - x(0,Semi-skilled) - x(0,Skilled) - x(1,Unskilled) - x(1,Semi-skilled) - x(1,Skilled) - x(2,Unskilled) - x(2,Semi-skilled) - x(2,Skilled) - x(3,Unskilled) - x(3,Semi-skilled) - x(3,Skilled) + z =E= 0 ; (LHS = 0)
-     
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 4
-G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Column Listing      SOLVE testmodel Using LP From line 55
-
-
----- x  it is equal to parameters for testing
-
-x(0,Unskilled)
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
-        1       equalconts(0,Unskilled)
-       -1       test
-
-x(0,Semi-skilled)
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
-        1       equalconts(0,Semi-skilled)
-       -1       test
-
-x(0,Skilled)
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
-        1       equalconts(0,Skilled)
-       -1       test
-
-REMAINING 9 ENTRIES SKIPPED
-
----- z  sum of x values
-
-z
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
-        1       test
-
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 5
-G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Range Statistics    SOLVE testmodel Using LP From line 55
-
-
-RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
-
-RHS       [min, max] : [ 5.000E+02, 2.500E+03] - Zero values observed as well
-Bound     [min, max] : [        NA,        NA]
-Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
-
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 6
-G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Model Statistics    SOLVE testmodel Using LP From line 55
-
-
-MODEL STATISTICS
-
-BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS           13
-BLOCKS OF VARIABLES           2     SINGLE VARIABLES           13
-NON ZERO ELEMENTS            25
-
-
-GENERATION TIME      =        0.000 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 7
-G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Solution Report     SOLVE testmodel Using LP From line 55
-
-
-               S O L V E      S U M M A R Y
-
-     MODEL   testmodel           OBJECTIVE  z
-     TYPE    LP                  DIRECTION  MINIMIZE
-     SOLVER  CPLEX               FROM LINE  55
-
-**** SOLVER STATUS     1 Normal Completion
-**** MODEL STATUS      1 Optimal
-**** OBJECTIVE VALUE            16400.0000
-
- RESOURCE USAGE, LIMIT          0.000 10000000000.000
- ITERATION COUNT, LIMIT         0    2147483647
---- *** This solver runs with a demo license. No commercial use.
---- GMO setup time: 0.00s
---- GMO memory 0.50 Mb (peak 0.50 Mb)
---- Dictionary memory 0.00 Mb
---- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
---- Starting Cplex
-
-
---- LP status (1): optimal.
---- Cplex Time: 0.00sec (det. 0.01 ticks)
-
-
-Optimal solution found
-Objective:        16400.000000
-
-
----- EQU equalconts  just make those two equal
-
-                      LOWER          LEVEL          UPPER         MARGINAL
-
-0.Unskilled         2000.0000      2000.0000      2000.0000         1.0000      
-0.Semi-skilled      1500.0000      1500.0000      1500.0000         1.0000      
-0.Skilled           1000.0000      1000.0000      1000.0000         1.0000      
-1.Unskilled         1000.0000      1000.0000      1000.0000         1.0000      
-1.Semi-skilled      1400.0000      1400.0000      1400.0000         1.0000      
-1.Skilled           1000.0000      1000.0000      1000.0000         1.0000      
-2.Unskilled          500.0000       500.0000       500.0000         1.0000      
-2.Semi-skilled      2000.0000      2000.0000      2000.0000         1.0000      
-2.Skilled           1500.0000      1500.0000      1500.0000         1.0000      
-3.Unskilled             .              .              .             1.0000      
-3.Semi-skilled      2500.0000      2500.0000      2500.0000         1.0000      
-3.Skilled           2000.0000      2000.0000      2000.0000         1.0000      
-
-                           LOWER          LEVEL          UPPER         MARGINAL
-
----- EQU test                .              .              .             1.0000      
-
-  test  test_variables
-
----- VAR x  it is equal to parameters for testing
-
-                      LOWER          LEVEL          UPPER         MARGINAL
-
-0.Unskilled           -INF         2000.0000        +INF             .          
-0.Semi-skilled        -INF         1500.0000        +INF             .          
-0.Skilled             -INF         1000.0000        +INF             .          
-1.Unskilled           -INF         1000.0000        +INF             .          
-1.Semi-skilled        -INF         1400.0000        +INF             .          
-1.Skilled             -INF         1000.0000        +INF             .          
-2.Unskilled           -INF          500.0000        +INF             .          
-2.Semi-skilled        -INF         2000.0000        +INF             .          
-2.Skilled             -INF         1500.0000        +INF             .          
-3.Unskilled           -INF             .            +INF             .          
-3.Semi-skilled        -INF         2500.0000        +INF             .          
-3.Skilled             -INF         2000.0000        +INF             .          
-
-                           LOWER          LEVEL          UPPER         MARGINAL
-
----- VAR z                 -INF        16400.0000        +INF             .          
-
-  z  sum of x values
-
-
-**** REPORT SUMMARY :        0     NONOPT
-                             0 INFEASIBLE
-                             0  UNBOUNDED
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:29:04 Page 8
-G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-E x e c u t i o n
-
-
-----     56 VARIABLE x.L  it is equal to parameters for testing
-
-    Unskilled  Semi-skil~     Skilled
-
-0    2000.000    1500.000    1000.000
-1    1000.000    1400.000    1000.000
-2     500.000    2000.000    1500.000
-3                2500.000    2000.000
-
-
-
-EXECUTION TIME       =        0.109 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+COMPILATION TIME     =        5.187 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
 
 
 USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
@@ -260,3 +132,5 @@ USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
 
 Input      D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
 Output     D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.lst
+
+**** USER ERROR(S) ENCOUNTERED

@@ -1,17 +1,2 @@
 B 3 C o m p i l a t i o n
-B 62 Include File Summary
-B 81 Equation Listing    SOLVE testmodel Using LP From line 55
-D 84 equalconts
-D 95 test
-B 101 Column Listing      SOLVE testmodel Using LP From line 55
-E 104 x
-E 123 z
-B 131 Range Statistics    SOLVE testmodel Using LP From line 55
-B 142 Model Statistics    SOLVE testmodel Using LP From line 55
-B 155 Solution Report     SOLVE testmodel Using LP From line 55
-F 186 equalconts
-F 205 test
-G 209 x
-G 228 z
-B 238 E x e c u t i o n
-I 238 x
+B 98 Include File Summary
