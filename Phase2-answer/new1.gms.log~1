@@ -1,5 +1,5 @@
 
---- Job new1.gms Start 02/04/23 11:08:39 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
+--- Job new1.gms Start 02/04/23 11:23:06 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
 --- Applying:
     D:\Programs\GAMS\42\gmsprmNT.txt
 --- GAMS Parameters defined
@@ -20,26 +20,36 @@ Licensee: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
 Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
 GAMS 42.1.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
 --- Starting compilation
---- new1.gms(10) 3 Mb
+--- new1.gms(13) 3 Mb
 --- call gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
 
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 672 Ms
---- new1.gms(11) 3 Mb
+Total time = 766 Ms
+--- new1.gms(14) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- new1.gms(32) 3 Mb
---- Starting execution: elapsed 0:00:00.799
+--- new1.gms(19) 3 Mb
+--- call gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
+
+GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
+Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
+Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+Total time = 891 Ms
+--- new1.gms(20) 3 Mb
+--- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- new1.gms(46) 3 Mb
+--- Starting execution: elapsed 0:00:01.746
 --- Generating LP model testmodel
---- new1.gms(29) 4 Mb
+--- new1.gms(43) 4 Mb
 ---   13 rows  13 columns  25 non-zeroes
 --- Range statistics (absolute non-zero finite values)
 --- RHS       [min, max] : [ 5.000E+02, 2.500E+03] - Zero values observed as well
 --- Bound     [min, max] : [        NA,        NA]
 --- Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
---- Executing CPLEX (Solvelink=2): elapsed 0:00:00.818
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:01.750
 
 IBM ILOG CPLEX   42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 
@@ -70,7 +80,7 @@ Optimal solution found
 Objective:        16400.000000
 
 --- Reading solution for model testmodel
---- Executing after solve: elapsed 0:00:00.958
---- new1.gms(30) 4 Mb
+--- Executing after solve: elapsed 0:00:01.771
+--- new1.gms(44) 4 Mb
 *** Status: Normal completion
---- Job new1.gms Stop 02/04/23 11:08:40 elapsed 0:00:00.958
+--- Job new1.gms Stop 02/04/23 11:23:08 elapsed 0:00:01.771

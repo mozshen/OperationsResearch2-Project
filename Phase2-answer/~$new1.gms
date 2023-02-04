@@ -59,7 +59,7 @@ $load parttime_cost
 ;
 
 Parameter parttime_limit
-$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!C5
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=O!C6
 $gdxin Pahse2_Data_OR2.gdx
 $load parttime_limit
 ;
