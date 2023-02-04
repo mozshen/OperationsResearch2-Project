@@ -1,70 +1,66 @@
 B 3 C o m p i l a t i o n
-B 220 Include File Summary
-B 249 Equation Listing    SOLVE testmodel Using LP From line 193
-D 252 Workforce_constraint
-D 263 Workforce_given
-D 274 State_variable_unskilled
-D 285 State_variable_semiskilled
-D 296 State_variable_skilled
-D 307 Hiring_constraint_normal
-D 318 Hiring_constraint_over
-D 329 Hiring_constraint_part
-D 340 layoff_constraint
-D 351 training_constraint_unskilled_limit
-D 362 training_constraint_unskilled_workforce
-D 373 training_constraint_semiskilled_limit
-D 384 training_constraint_semiskilled_workforce
-D 395 demote_constraint_semiskilled
-D 406 demote_constraint_skilled
-D 417 layoff
-B 423 Column Listing      SOLVE testmodel Using LP From line 193
-E 426 H
-E 445 P
-E 464 L
-E 486 O
-E 505 Train
-E 548 Demote
-E 576 W
-E 619 Z_first
-B 627 Range Statistics    SOLVE testmodel Using LP From line 193
-B 638 Model Statistics    SOLVE testmodel Using LP From line 193
-B 651 Solution Report     SOLVE testmodel Using LP From line 193
-F 679 Workforce_constraint
-F 696 Workforce_given
-F 713 State_variable_unskilled
-F 722 State_variable_semiskilled
-F 731 State_variable_skilled
-F 740 Hiring_constraint_normal
-F 757 Hiring_constraint_over
-F 766 Hiring_constraint_part
-F 775 layoff_constraint
-F 792 training_constraint_unskilled_limit
-F 809 training_constraint_unskilled_workforce
-F 826 training_constraint_semiskilled_limit
-F 843 training_constraint_semiskilled_workforce
-F 860 demote_constraint_semiskilled
-F 877 demote_constraint_skilled
-F 896 layoff
-G 900 H
-G 917 P
-G 934 L
-G 951 O
-G 968 Train
-G 981 Demote
-G 998 W
-G 1017 Z_first
-B 1027 E x e c u t i o n
-I 1027 demand_table
-I 1038 churn_table
-I 1046 hiring_limit
-I 1051 training_limit
-I 1056 training_theshold
-I 1061 overhiring_limit
-I 1066 parttime_limit
-I 1071 H
-I 1076 P
-I 1081 L
-I 1086 O
-I 1091 Train
-I 1096 Demote
-I 1101 W
+B 265 Include File Summary
+B 294 Equation Listing    SOLVE testmodel Using LP From line 223
+D 297 Workforce_constraint
+D 308 State_variable_unskilled
+D 319 State_variable_semiskilled
+D 330 State_variable_skilled
+D 341 demote_constraint_semiskilled
+D 352 demote_constraint_skilled
+D 363 training_constraint_semiskilled_limit
+D 374 training_constraint_semiskilled_workforce
+D 385 training_constraint_unskilled_limit
+D 396 training_constraint_unskilled_workforce
+D 407 Hiring_constraint_part
+D 418 Hiring_constraint_over
+D 429 layoff_constraint
+D 440 layoff
+B 446 Column Listing      SOLVE testmodel Using LP From line 223
+E 449 H
+E 465 P
+E 484 L
+E 506 O
+E 525 Train
+E 568 Demote
+E 596 W
+E 636 Z_first
+B 644 Range Statistics    SOLVE testmodel Using LP From line 223
+B 655 Model Statistics    SOLVE testmodel Using LP From line 223
+B 668 Solution Report     SOLVE testmodel Using LP From line 223
+F 699 Workforce_constraint
+F 716 State_variable_unskilled
+F 725 State_variable_semiskilled
+F 734 State_variable_skilled
+F 743 demote_constraint_semiskilled
+F 760 demote_constraint_skilled
+F 777 training_constraint_semiskilled_limit
+F 794 training_constraint_semiskilled_workforce
+F 811 training_constraint_unskilled_limit
+F 828 training_constraint_unskilled_workforce
+F 845 Hiring_constraint_part
+F 854 Hiring_constraint_over
+F 863 layoff_constraint
+F 882 layoff
+G 886 H
+G 900 P
+G 917 L
+G 934 O
+G 951 Train
+G 964 Demote
+G 981 W
+G 1000 Z_first
+B 1010 E x e c u t i o n
+I 1010 demand_table
+I 1021 churn_table
+I 1029 hiring_limit
+I 1034 training_limit
+I 1039 training_theshold
+I 1044 overhiring_limit
+I 1049 parttime_limit
+I 1054 W
+I 1064 H
+I 1074 O
+I 1084 L
+I 1094 Train
+I 1112 Demote
+I 1130 P

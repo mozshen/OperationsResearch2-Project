@@ -135,7 +135,7 @@ Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
 State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
     (
     W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
-    -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled')- H(t-1, 'Unskilled')- L(t-1, 'Unskilled')- O(t-1, 'Unskilled'))]
+    -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled'))]
     +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
     )$ (d(t))
 ;
@@ -144,7 +144,7 @@ State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
 State_variable_semiskilled(t, 'Semi-skilled').. W(t, 'Semi-skilled')=e=
     (
     W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
-    -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled')- H(t-1, 'Semi-skilled')- L(t-1, 'Semi-skilled')- O(t-1, 'Semi-skilled'))]
+    -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Semi-skilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled'))]
     +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
     )$ (d(t))
 ;
@@ -153,7 +153,7 @@ State_variable_semiskilled(t, 'Semi-skilled').. W(t, 'Semi-skilled')=e=
 State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')=e=
     (
     W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
-    -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled')- H(t-1, 'Skilled')- L(t-1, 'Skilled')- O(t-1, 'Skilled'))]
+    -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
     +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
     )$ (d(t))
 ;
@@ -189,7 +189,37 @@ demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demot
 * lay off ogjective for the first part
 layoff.. Z_first=e= sum((t, s), L(t, s));
 
-model testmodel /all/;
+model testmodel /
+    
+*    Workforce_given,
+    Workforce_constraint,
+
+    State_variable_unskilled,
+    State_variable_semiskilled,
+    State_variable_skilled,
+    
+    demote_constraint_semiskilled,
+    demote_constraint_skilled,
+    training_constraint_semiskilled_limit,
+    training_constraint_semiskilled_workforce,
+    training_constraint_unskilled_limit,
+    training_constraint_unskilled_workforce,
+    
+*    Hiring_constraint_normal,
+    Hiring_constraint_part,
+    Hiring_constraint_over,
+    layoff_constraint,
+       
+    layoff
+    
+/
+
+*   Workforce_given,
+     
+    
+    
+           
+;
 solve testmodel using lp minimizing Z_first;
 
 display demand_table;
@@ -201,20 +231,35 @@ display overhiring_limit;
 display parttime_limit;
 
 
-display H.l;
-display P.l;
-display L.l;
-display O.l;
-
-display Train.l;
-display Demote.l;
-
+W.l(t, s)$ (W.l(t, s) eq 0)= eps;
 display W.l;
 
-execute_unload "Pahse2_Data_OR2.gdx" W.l;
-execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2'
-*execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8'
-*execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=z.l rng=Objective!C3'
+H.l(t, s)$ (H.l(t, s) eq 0)= eps;
+display H.l;
+
+O.l(t, s)$ (O.l(t, s) eq 0)= eps;
+display O.l;
+
+L.l(t, s)$ (L.l(t, s) eq 0)= eps
+display L.l;
+
+Train.l(t, s, s)$ (Train.l(t, s, s) eq 0)= eps;
+display Train.l;
+
+Demote.l(t, s, s)$ (Demote.l(t, s, s) eq 0)= eps;
+display Demote.l;
+
+P.l(t, s)$ (P.l(t, s) eq 0)= eps;
+display P.l;
+
+execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=p.l rng=Results!B14';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=L.l rng=Results!B20';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=O.l rng=Results!B26';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Train.l rng=Results!B32';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Demote.l rng=Results!B50';
 
 
 
