@@ -106,7 +106,14 @@ Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
 Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
 
 layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
-* training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
+
+training_constraint_unskilled_limit(t, s, s) training limit for training from unslikked to semi-skilled at year t (1.4.5)
+training_constraint_unskilled_workforce(t, s, s) workforce limit for training from unslikked to semi-skilled at year t (1.4.5)
+
+training_constraint_semiskilled_limit(t, s, s) training limit for training from semiskilled to skilled at year t (1.4.5)
+training_constraint_semiskilled_workforce(t, s, s) workforce limit for training from semiskilled to skilled at year t (1.4.5)
+
+
 * demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
 
 layoff objective function of the first part
@@ -165,8 +172,12 @@ layoff_constraint(t, s).. L(t, s)=l= W(t, s);
 
 
 
+* Training limit
+training_constraint_unskilled_limit(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= training_limit('fixed');
+training_constraint_unskilled_workforce(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= W(t, 'Unskilled');
 
-
+training_constraint_semiskilled_limit(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= training_theshold('fixed')* W(t, 'Skilled');
+training_constraint_semiskilled_workforce(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= W(t, 'Semi-skilled')+ Train(t, 'Unskilled', 'Semi-skilled');
 
 
 * lay off ogjective for the first part

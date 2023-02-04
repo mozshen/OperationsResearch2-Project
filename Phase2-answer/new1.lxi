@@ -1,55 +1,63 @@
 B 3 C o m p i l a t i o n
-B 203 Include File Summary
-B 232 Equation Listing    SOLVE testmodel Using LP From line 176
-D 235 Workforce_constraint
-D 246 State_variable_unskilled
-D 257 State_variable_semiskilled
-D 268 State_variable_skilled
-D 279 Hiring_constraint_normal
-D 290 Hiring_constraint_over
-D 301 Hiring_constraint_part
-D 312 layoff_constraint
-D 323 layoff
-B 329 Column Listing      SOLVE testmodel Using LP From line 176
-E 332 H
-E 351 P
-E 370 L
-E 392 O
-E 411 Train
-E 430 Demote
-E 449 W
-E 474 Z_first
-B 482 Range Statistics    SOLVE testmodel Using LP From line 176
-B 493 Model Statistics    SOLVE testmodel Using LP From line 176
-B 506 Solution Report     SOLVE testmodel Using LP From line 176
-F 537 Workforce_constraint
-F 554 State_variable_unskilled
-F 563 State_variable_semiskilled
-F 572 State_variable_skilled
-F 581 Hiring_constraint_normal
-F 598 Hiring_constraint_over
-F 607 Hiring_constraint_part
-F 616 layoff_constraint
-F 635 layoff
-G 639 H
-G 656 P
-G 673 L
-G 690 O
-G 707 Train
-G 718 Demote
-G 732 W
-G 751 Z_first
-B 761 E x e c u t i o n
-I 761 demand_table
-I 772 churn_table
-I 780 churn_table
-I 788 hiring_limit
-I 793 overhiring_limit
-I 798 parttime_limit
-I 803 H
-I 810 P
-I 815 L
-I 820 O
-I 827 Train
-I 832 Demote
-I 842 W
+B 214 Include File Summary
+B 243 Equation Listing    SOLVE testmodel Using LP From line 187
+D 246 Workforce_constraint
+D 257 State_variable_unskilled
+D 268 State_variable_semiskilled
+D 279 State_variable_skilled
+D 290 Hiring_constraint_normal
+D 301 Hiring_constraint_over
+D 312 Hiring_constraint_part
+D 323 layoff_constraint
+D 334 training_constraint_unskilled_limit
+D 345 training_constraint_unskilled_workforce
+D 356 training_constraint_semiskilled_limit
+D 367 training_constraint_semiskilled_workforce
+D 378 layoff
+B 384 Column Listing      SOLVE testmodel Using LP From line 187
+E 387 H
+E 406 P
+E 425 L
+E 447 O
+E 466 Train
+E 509 Demote
+E 528 W
+E 562 Z_first
+B 570 Range Statistics    SOLVE testmodel Using LP From line 187
+B 581 Model Statistics    SOLVE testmodel Using LP From line 187
+B 594 Solution Report     SOLVE testmodel Using LP From line 187
+F 625 Workforce_constraint
+F 642 State_variable_unskilled
+F 651 State_variable_semiskilled
+F 660 State_variable_skilled
+F 669 Hiring_constraint_normal
+F 686 Hiring_constraint_over
+F 695 Hiring_constraint_part
+F 704 layoff_constraint
+F 721 training_constraint_unskilled_limit
+F 738 training_constraint_unskilled_workforce
+F 755 training_constraint_semiskilled_limit
+F 772 training_constraint_semiskilled_workforce
+F 791 layoff
+G 795 H
+G 812 P
+G 829 L
+G 846 O
+G 863 Train
+G 876 Demote
+G 890 W
+G 909 Z_first
+B 919 E x e c u t i o n
+I 919 demand_table
+I 930 churn_table
+I 938 churn_table
+I 946 hiring_limit
+I 951 overhiring_limit
+I 956 parttime_limit
+I 961 H
+I 970 P
+I 975 L
+I 980 O
+I 989 Train
+I 997 Demote
+I 1006 W
