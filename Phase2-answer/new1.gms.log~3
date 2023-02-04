@@ -1,5 +1,5 @@
 
---- Job new1.gms Start 02/04/23 15:58:29 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
+--- Job new1.gms Start 02/04/23 16:06:19 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
 --- Applying:
     D:\Programs\GAMS\42\gmsprmNT.txt
 --- GAMS Parameters defined
@@ -26,7 +26,7 @@ GAMS 42.1.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 547 Ms
+Total time = 500 Ms
 --- new1.gms(16) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -36,7 +36,7 @@ Total time = 547 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 515 Ms
+Total time = 562 Ms
 --- new1.gms(22) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -46,7 +46,7 @@ Total time = 515 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 515 Ms
+Total time = 532 Ms
 --- new1.gms(29) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -56,7 +56,7 @@ Total time = 515 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 516 Ms
+Total time = 531 Ms
 --- new1.gms(35) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -66,7 +66,7 @@ Total time = 516 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 610 Ms
+Total time = 516 Ms
 --- new1.gms(41) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -76,7 +76,7 @@ Total time = 610 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 516 Ms
+Total time = 562 Ms
 --- new1.gms(47) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -86,7 +86,7 @@ Total time = 516 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 625 Ms
+Total time = 531 Ms
 --- new1.gms(53) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -96,7 +96,7 @@ Total time = 625 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 578 Ms
+Total time = 579 Ms
 --- new1.gms(59) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -106,68 +106,65 @@ Total time = 578 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 687 Ms
+Total time = 563 Ms
 --- new1.gms(65) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- new1.gms(177) 3 Mb 2 Errors
-*** Error  37 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-    '=l=' or '=e=' or '=g=' operator expected
-*** Error 409 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-    Unrecognizable item - skip to find a new statement
-      looking for a ';' or a key word to get started again
---- new1.gms(187) 3 Mb 3 Errors
+--- new1.gms(129) 3 Mb 1 Error
+*** Error 140 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
+    Unknown symbol
+--- new1.gms(193) 3 Mb 2 Errors
 *** Error 257 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Solve statement not checked because of previous errors
---- new1.gms(198) 3 Mb 4 Errors
+--- new1.gms(204) 3 Mb 3 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(199) 3 Mb 5 Errors
+--- new1.gms(205) 3 Mb 4 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(200) 3 Mb 6 Errors
+--- new1.gms(206) 3 Mb 5 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(201) 3 Mb 7 Errors
+--- new1.gms(207) 3 Mb 6 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(203) 3 Mb 8 Errors
+--- new1.gms(209) 3 Mb 7 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(204) 3 Mb 9 Errors
+--- new1.gms(210) 3 Mb 8 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(206) 3 Mb 10 Errors
+--- new1.gms(212) 3 Mb 9 Errors
 *** Error 141 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
     Symbol declared but no values have been assigned. Check for missing
        data definition, assignment, data loading or implicit assignment
        via a solve statement.
        A wild shot: You may have spurious commas in the explanatory
        text of a declaration. Check symbol reference list.
---- new1.gms(215) 3 Mb 10 Errors
+--- new1.gms(221) 3 Mb 9 Errors
 *** Status: Compilation error(s)
---- Job new1.gms Stop 02/04/23 15:58:35 elapsed 0:00:05.584
+--- Job new1.gms Stop 02/04/23 16:06:24 elapsed 0:00:05.224
