@@ -82,8 +82,12 @@ Z_second total cost
 Equations
 
 Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
-Workforce_given(t, s) limit for workforce for skill s at year t (1.4.1)
-State_variables(t, s) state of workforce for skill s at year t (1.4.2)
+Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
+
+State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
+State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
+State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
+
 Hiring_constraint(t, s) limit for hiring for skill s at year t (1.4.3)
 layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
 training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
@@ -93,11 +97,38 @@ layoff objective function of the first part
 Cost objective function of the second part
 ;
 
+* workforce
 * for years 1 to 3 we should have the requested workforce
-Workforce_limit(t, s) .. W(t, s) =g= demand_table(t, s)$(d(t));
+Workforce_constraint(t, s) .. W(t, s) =g= demand_table(t, s)$(d(t));
 
 * for year 0 the workforce is given so we use the equal
-Workforce_limit(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
+Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
+
+
+* state variebles
+* maybe we need to define these for t>0
+*unskilled workers
+State_variable_unskilled(t, 'Unskilled').. W(t, 'Unskilled')=e=
+    W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
+    -[L(t-1, 'Unskilled')+ churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled')- H(t-1, 'Unskilled')- L(t-1, 'Unskilled')- O(t-1, 'Unskilled'))]
+    +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
+;
+
+* semiskilled workers
+State_variable_semiskilled(t, 'Semi-skilled').. W(t, 'Semi-skilled')=e=
+    W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
+    -[L(t-1, 'Semi-skilled')+ churn_table('New', 'Unskilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.1* (W(t-1, 'Semi-skilled')- H(t-1, 'Semi-skilled')- L(t-1, 'Semi-skilled')- O(t-1, 'Semi-skilled'))]
+    +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
+    
+;
+
+* semiskilled workers
+State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')=e=
+    W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
+    -[L(t-1, 'Skilled')+ 0.25* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.1* (W(t-1, 'Skilled')- H(t-1, 'Skilled')- L(t-1, 'Skilled')- O(t-1, 'Skilled'))]
+    +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
+    
+;
 
 
 * layoff .. Z_first=e= 10;

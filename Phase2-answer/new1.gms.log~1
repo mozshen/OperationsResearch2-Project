@@ -1,5 +1,5 @@
 
---- Job new1.gms Start 02/04/23 13:23:52 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
+--- Job new1.gms Start 02/04/23 13:49:28 42.1.0 cb854401 WEX-WEI x86 64bit/MS Windows
 --- Applying:
     D:\Programs\GAMS\42\gmsprmNT.txt
 --- GAMS Parameters defined
@@ -26,7 +26,7 @@ GAMS 42.1.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 875 Ms
+Total time = 547 Ms
 --- new1.gms(14) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -36,7 +36,7 @@ Total time = 875 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 609 Ms
+Total time = 531 Ms
 --- new1.gms(20) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -46,7 +46,7 @@ Total time = 609 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 562 Ms
+Total time = 500 Ms
 --- new1.gms(27) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -56,7 +56,7 @@ Total time = 562 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 563 Ms
+Total time = 500 Ms
 --- new1.gms(33) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -66,7 +66,7 @@ Total time = 563 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 547 Ms
+Total time = 515 Ms
 --- new1.gms(39) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -76,7 +76,7 @@ Total time = 547 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 515 Ms
+Total time = 531 Ms
 --- new1.gms(45) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -86,7 +86,7 @@ Total time = 515 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 750 Ms
+Total time = 516 Ms
 --- new1.gms(51) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -96,7 +96,7 @@ Total time = 750 Ms
 GDXXRW           42.1.0 cb854401 Feb 1, 2023           WEI x86 64bit/MS Window
 Input file : D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.xlsx
 Output file: D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-Total time = 500 Ms
+Total time = 531 Ms
 --- new1.gms(57) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
@@ -110,14 +110,21 @@ Total time = 516 Ms
 --- new1.gms(63) 3 Mb
 --- GDXin=D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- GDX File ($gdxIn) D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- new1.gms(99) 3 Mb 2 Errors
-*** Error 150 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-    Symbolic equations redefined
-*** Error 801 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-    conflicting equation type definition
---- new1.gms(105) 3 Mb 3 Errors
-*** Error 257 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-    Solve statement not checked because of previous errors
---- new1.gms(107) 3 Mb 3 Errors
+--- new1.gms(135) 3 Mb 2 Errors
+*** Error  71 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
+    The symbol shown has been declared as an equation, but no
+       Symbolic equation (..) was found. hint - look for commas in the
+       Documentation text for the equations. use quotes around the
+       Text or eliminate the commas.
+*** Error 256 in D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
+    Error(s) in analyzing solve statement.
+*** The following LP errors were detected in model testmodel:
+     71 Hiring_constraint is an undefined equation
+     71 layoff_constraint is an undefined equation
+     71 training_constraint is an undefined equation
+     71 demote_constraint is an undefined equation
+     71 layoff is an undefined equation
+     71 Cost is an undefined equation
+--- new1.gms(137) 3 Mb 2 Errors
 *** Status: Compilation error(s)
---- Job new1.gms Stop 02/04/23 13:23:58 elapsed 0:00:05.822
+--- Job new1.gms Stop 02/04/23 13:49:33 elapsed 0:00:05.039
