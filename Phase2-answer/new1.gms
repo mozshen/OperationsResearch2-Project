@@ -44,6 +44,12 @@ $gdxin Pahse2_Data_OR2.gdx
 $load training_theshold
 ;
 
+Parameter training_cost(s, s)
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_cost rng=T!D12:G15 rdim=1 cdim=1
+$gdxin Pahse2_Data_OR2.gdx
+$load training_cost
+;
+
 Parameter layoff_cost(s)
 $call gdxxrw.exe Pahse2_Data_OR2.xlsx par=layoff_cost rng=L!C2:E3 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
@@ -145,10 +151,10 @@ Cost objective function of the second part
 
 * workforce
 * for years 1 to 3 we should have the requested workforce
-Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
+Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =e= demand_table(t, s);
 
 * for year 0 the workforce is given so we use the equal
-Workforce_given(t, s) .. W('0', s) =e= demand_table('0', s);
+* Workforce_given(t, s) .. W('0', s) =e= demand_table('0', s);
 
 
 * state variebles
@@ -208,7 +214,7 @@ demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demot
 
 * defining costs
 * training
-training_costs.. trainincost=e= sum(t, Train(t, 'Unskilled', 'Semi-skilled'));
+training_costs.. trainincost=e= sum(t, training_cost('Unskilled', 'Semi-skilled')* Train(t, 'Unskilled', 'Semi-skilled')+ training_cost('Semi-skilled', 'Skilled')* Train(t, 'Semi-skilled', 'Skilled'));
 
 *parttime
 parttime_costs.. parttimecost=e= sum((t, s), parttime_cost(s)* P(t, s));
@@ -223,11 +229,10 @@ overhire_costs.. overhiringcost=e= sum((t, s), over_hiring_cost(s)* O(t, s));
 layoff.. Z_first=e= sum((t, s), L(t, s));
 
 * total cost
-cost.. z_second=e= trainincost+ parttimecost+ layoffcost+ overhiringcost
+cost.. z_second=e= trainincost+ parttimecost+ layoffcost+ overhiringcost;
 
 model testmodel /
     
-    Workforce_given,
     Workforce_constraint,
 
     State_variable_unskilled,
@@ -257,7 +262,7 @@ model testmodel /
 /
 ;
 
-solve testmodel using mip minimizing Z_first;
+solve testmodel using mip minimizing Z_second;
 
 display demand_table;
 display churn_table;
