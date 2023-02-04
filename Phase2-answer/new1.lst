@@ -1,4 +1,4 @@
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:47:12 Page 1
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 13:24:59 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -9,91 +9,116 @@ C o m p i l a t i o n
    4  * first we define the indices
    5  sets
    6  t years /0, 1, 2, 3/
-   7  s skills /Unskilled, Semi-skilled, Skilled/
-   8  e experience level /New, Experienced/
-   9  ;
-  10  Alias(s, s1);
-  11  Alias(s, s2);
-  12   
-  13   
-  14  Parameter demand_table(t,s)
+   7  d(t) years that the workforce is not given /1, 2, 3/
+   8  s skills /Unskilled, Semi-skilled, Skilled/
+   9  e experience level /New, Experienced/
+  10  ;
+  11   
+  12  Parameter demand_table(t,s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  demand_table = 1:demand_table
-  18  ;
-  19   
-  20  Parameter churn_table(e,s)
+  16  ;
+  17   
+  18  Parameter churn_table(e,s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  churn_table = 1:churn_table
-  24  ;
-  25   
-  26   
-  27  Parameter hiring_limit(s)
+  22  ;
+  23   
+  24   
+  25  Parameter hiring_limit(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  hiring_limit = 1:hiring_limit
-  31  ;
-  32   
-  33  Parameter training_limit
+  29  ;
+  30   
+  31  Parameter training_limit
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  training_limit = 1:training_limit
-  37  ;
-  38   
-  39  Parameter training_theshold
+  35  ;
+  36   
+  37  Parameter training_theshold
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  training_theshold = 1:training_theshold
-  43  ;
-  44   
-  45  Parameter over_hiring_cost(s)
+  41  ;
+  42   
+  43  Parameter over_hiring_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  over_hiring_cost = 1:over_hiring_cost
-  49  ;
-  50   
-  51  Parameter overhiring_limit
+  47  ;
+  48   
+  49  Parameter overhiring_limit
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  overhiring_limit = 1:overhiring_limit
-  55  ;
-  56   
-  57  Parameter parttime_cost(s)
+  53  ;
+  54   
+  55  Parameter parttime_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  parttime_cost = 1:parttime_cost
-  61  ;
-  62   
-  63  Parameter parttime_limit
+  59  ;
+  60   
+  61  Parameter parttime_limit
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 --- LOAD  parttime_limit = 1:parttime_limit
-  67  ;
-  68   
-  69  variables
-  70  H(t, s) hiring for skill s at year t
-  71  P(t, s) parttime for skill s at year t
-  72  L(t, s) lay off for skill s at year t
-  73  O(t, s) over-hire for skill s at year t
-  74  Train(t, s, s) training from skill s1 to skill s2 at year t
-  75  z sum of x values
-  76  ;
+  65  ;
+  66   
+  67  variables
+  68  H(t, s) hiring for skill s at year t
+  69  P(t, s) parttime for skill s at year t
+  70  L(t, s) lay off for skill s at year t
+  71  O(t, s) over-hire for skill s at year t
+  72   
+  73  Train(t, s, s) training from skill s1 to skill s2 at year t
+  74  Demote(t, s, s) demoting from skill s1 to skill s2 at year t
+  75   
+  76  W(t ,s) workforce for skill s at year t
   77   
-  78   
-  79  Equations
-  80  equalconts(t, s) just make those two equal
-  81  test test_variables;
-  82   
+  78  Z_first total lay offs at all years for all skills
+  79  Z_second total cost
+  80  ;
+  81   
+  82  Equations
   83   
-  84   
-  85  test.. z=e=sum((t, s), x(t, s));
-****                         $140
-**** 140  Unknown symbol
-  86  equalconts(t, s).. x(t, s)=e= demand_table(t, s)
-  87   
-  88   
-  89  model testmodel /all/;
-  90  solve testmodel using lp minimizing z;
-****                                       $257
-**** 257  Solve statement not checked because of previous errors
-  91  display x.l;
-  92   
-  93   
+  84  Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
+  85  Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
+  86  State_variables(t, s) state of workforce for skill s at year t (1.4.2)
+  87  Hiring_constraint(t, s) limit for hiring for skill s at year t (1.4.3)
+  88  layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+  89  training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
+  90  demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
+  91   
+  92  layoff objective function of the first part
+  93  Cost objective function of the second part
+  94  ;
+  95   
+  96  * for years 1 to 3 we should have the requested workforce
+  97  Workforce_constraint(t, s) .. W(t, s) =g= demand_table(t, s)$(d(t));
+  98   
+  99  * for year 0 the workforce is given so we use the equal
+ 100  Workforce_given(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
+ 101   
+ 102   
+ 103  * layoff .. Z_first=e= 10;
+ 104   
+ 105  model testmodel /all/;
+ 106  solve testmodel using lp minimizing Z_first;
+****                                             $71,256
+****  71  The symbol shown has been declared as an equation, but no
+****         Symbolic equation (..) was found. hint - look for commas in the
+****         Documentation text for the equations. use quotes around the
+****         Text or eliminate the commas.
+**** 256  Error(s) in analyzing solve statement.
+**** The following LP errors were detected in model testmodel:
+****  71 State_variables is an undefined equation
+****  71 Hiring_constraint is an undefined equation
+****  71 layoff_constraint is an undefined equation
+****  71 training_constraint is an undefined equation
+****  71 demote_constraint is an undefined equation
+****  71 layoff is an undefined equation
+****  71 Cost is an undefined equation
+ 107   
+ 108   
 
 **** 2 ERROR(S)   0 WARNING(S)
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:47:12 Page 2
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 13:24:59 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Include File Summary
 
@@ -101,27 +126,27 @@ Include File Summary
    SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
 
      1        1 INPUT          0       0  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
-     2       15 CALL           1      15  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
-     3       16 GDXIN          1      16  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     4       21 CALL           1      21  gdxxrw.exe Pahse2_Data_OR2.xlsx par=churn_table rng=W!B2:E4 rdim=1 cdim=1
-     5       22 GDXIN          1      22  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     6       28 CALL           1      28  gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
-     7       29 GDXIN          1      29  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-     8       34 CALL           1      34  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!E5
-     9       35 GDXIN          1      35  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    10       40 CALL           1      40  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!E6
-    11       41 GDXIN          1      41  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    12       46 CALL           1      46  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
-    13       47 GDXIN          1      47  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    14       52 CALL           1      52  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!C6
-    15       53 GDXIN          1      53  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    16       58 CALL           1      58  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
-    17       59 GDXIN          1      59  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    18       64 CALL           1      64  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!C5
-    19       65 GDXIN          1      65  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     2       13 CALL           1      13  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
+     3       14 GDXIN          1      14  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     4       19 CALL           1      19  gdxxrw.exe Pahse2_Data_OR2.xlsx par=churn_table rng=W!B2:E4 rdim=1 cdim=1
+     5       20 GDXIN          1      20  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     6       26 CALL           1      26  gdxxrw.exe Pahse2_Data_OR2.xlsx par=hiring_limit rng=R!C2:E3 cdim=1
+     7       27 GDXIN          1      27  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+     8       32 CALL           1      32  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_limit rng=T!E5
+     9       33 GDXIN          1      33  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    10       38 CALL           1      38  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!E6
+    11       39 GDXIN          1      39  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    12       44 CALL           1      44  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
+    13       45 GDXIN          1      45  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    14       50 CALL           1      50  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!C6
+    15       51 GDXIN          1      51  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    16       56 CALL           1      56  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
+    17       57 GDXIN          1      57  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    18       62 CALL           1      62  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!C5
+    19       63 GDXIN          1      63  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 
 
-COMPILATION TIME     =        5.187 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+COMPILATION TIME     =        5.860 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
 
 
 USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN

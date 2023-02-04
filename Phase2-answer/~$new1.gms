@@ -4,6 +4,7 @@
 * first we define the indices
 sets
 t years /0, 1, 2, 3/
+d(t) years that the workforce is not given /1, 2, 3/
 s skills /Unskilled, Semi-skilled, Skilled/
 e experience level /New, Experienced/
 ;
@@ -80,23 +81,28 @@ Z_second total cost
 
 Equations
 
-Workforce_limit(t, s) limit for workforce for skill s at year t (1.4.1)
+Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
+Workforce_given(t, s) limit for workforce for skill s at year t (1.4.1)
 State_variables(t, s) state of workforce for skill s at year t (1.4.2)
-Hiring_limit(t, s) limit for hiring for skill s at year t (1.4.3)
-layoff_limit(t, s) limit for layoff for skill s at year t (1.4.4)
-training_limit(t, s, s) limit for training between skills at year t (1.4.5)
-demote_limit(t, s, s) limit for demote between skills at year t (1.4.6)
+Hiring_constraint(t, s) limit for hiring for skill s at year t (1.4.3)
+layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+training_constraint(t, s, s) limit for training between skills at year t (1.4.5)
+demote_constraint(t, s, s) limit for demote between skills at year t (1.4.6)
+
+layoff objective function of the first part
+Cost objective function of the second part
+;
+
+* for years 1 to 3 we should have the requested workforce
+Workforce_limit(t, s) .. W(t, s) =g= demand_table(t, s)$(d(t));
+
+* for year 0 the workforce is given so we use the equal
+Workforce_limit(t, s) .. W(t, s) =e= demand_table(t, s)$(not d(t));
 
 
-
-
-
-test.. z=e=sum((t, s), x(t, s));
-equalconts(t, s).. x(t, s)=e= demand_table(t, s)
-
+* layoff .. Z_first=e= 10;
 
 model testmodel /all/;
-solve testmodel using lp minimizing z;
-display x.l;
+solve testmodel using lp minimizing Z_first;
 
 
