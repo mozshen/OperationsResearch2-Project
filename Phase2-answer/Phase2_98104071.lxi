@@ -1,0 +1,95 @@
+B 3 C o m p i l a t i o n
+B 327 Include File Summary
+B 360 Equation Listing    SOLVE testmodel Using MIP From line 265
+D 363 Workforce_constraint
+D 374 State_variable_unskilled
+D 383 State_variable_semiskilled
+D 392 State_variable_skilled
+D 401 demote_constraint_semiskilled
+D 412 demote_constraint_skilled
+D 423 training_constraint_semiskilled_limit
+D 434 training_constraint_semiskilled_workforce
+D 445 training_constraint_unskilled_limit
+D 456 training_constraint_unskilled_workforce
+D 467 Hiring_constraint_normal
+D 478 Hiring_constraint_part
+D 489 Hiring_constraint_over
+D 500 layoff_constraint
+D 511 training_costs
+D 516 parttime_costs
+D 521 layoff_costs
+D 526 overhire_costs
+D 531 Cost
+D 536 layoff
+B 542 Column Listing      SOLVE testmodel Using MIP From line 265
+E 545 H
+E 564 P
+E 586 L
+E 611 O
+E 633 Train
+E 679 Demote
+E 707 W
+E 744 Z_first
+E 751 trainincost
+E 759 parttimecost
+E 767 layoffcost
+E 775 overhiringcost
+E 783 Z_second
+B 791 Range Statistics    SOLVE testmodel Using MIP From line 265
+B 802 Model Statistics    SOLVE testmodel Using MIP From line 265
+B 815 Solution Report     SOLVE testmodel Using MIP From line 265
+F 857 Workforce_constraint
+F 874 State_variable_unskilled
+F 882 State_variable_semiskilled
+F 890 State_variable_skilled
+F 898 demote_constraint_semiskilled
+F 915 demote_constraint_skilled
+F 932 training_constraint_semiskilled_limit
+F 949 training_constraint_semiskilled_workforce
+F 966 training_constraint_unskilled_limit
+F 983 training_constraint_unskilled_workforce
+F 1000 Hiring_constraint_normal
+F 1017 Hiring_constraint_part
+F 1026 Hiring_constraint_over
+F 1035 layoff_constraint
+F 1054 training_costs
+F 1055 parttime_costs
+F 1056 layoff_costs
+F 1057 overhire_costs
+F 1058 Cost
+F 1059 layoff
+G 1068 H
+G 1085 P
+G 1102 L
+G 1119 O
+G 1136 Train
+G 1149 Demote
+G 1166 W
+G 1185 Z_first
+G 1186 trainincost
+G 1187 parttimecost
+G 1188 layoffcost
+G 1189 overhiringcost
+G 1190 Z_second
+B 1205 E x e c u t i o n
+I 1205 demand_table
+I 1216 churn_table
+I 1224 hiring_limit
+I 1229 training_limit
+I 1234 training_theshold
+I 1239 overhiring_limit
+I 1244 parttime_limit
+I 1249 over_hiring_cost
+I 1254 parttime_cost
+I 1259 W
+I 1269 H
+I 1279 O
+I 1289 L
+I 1299 Train
+I 1317 Demote
+I 1335 P
+I 1346 trainincost
+I 1348 parttimecost
+I 1350 layoffcost
+I 1352 overhiringcost
+I 1354 Z_second
