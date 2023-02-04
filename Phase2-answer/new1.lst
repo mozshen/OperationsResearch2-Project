@@ -1,4 +1,4 @@
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 01:01:27 Page 1
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -9,16 +9,218 @@ C o m p i l a t i o n
    4  * first we define the indices
    5  sets
    6  t years /0, 1, 2, 3/
-   7  s skills /l, m, h/;
+   7  s skills /Unskilled, Semi-skilled, Skilled/;
    8   
-   9   
-  10   
+   9  Parameter demand_table(t,s);
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  demand_table = 1:demand_table
+  13   
+  14  variables
+  15  x(t, s) it is equal to parameters for testing
+  16  z sum of x values;
+  17   
+  18  Equations
+  19  equalconts(t, s) just make those two equal
+  20  test test_variables;
+  21   
+  22   
+  23   
+  24  test.. z=e=sum((t, s), x(t, s));
+  25  equalconts(t, s).. x(t, s)=e= demand_table(t, s)
+  26   
+  27   
+  28  model testmodel /all/;
+  29  solve testmodel using lp minimizing z;
+  30  display x.l;
+  31   
+  32   
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
 
 
-COMPILATION TIME     =        0.000 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\new1.gms
+     2       10 CALL           1      10  gdxxrw.exe Pahse2_Data_OR2.xlsx par=demand_table rng=D!B2:E6 rdim=1 cdim=1
+     3       11 GDXIN          1      11  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 
 
-EXECUTION TIME       =        0.000 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+COMPILATION TIME     =        0.734 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE testmodel Using LP From line 29
+
+
+---- equalconts  =E=  just make those two equal
+
+equalconts(0,Unskilled)..  x(0,Unskilled) =E= 2000 ; (LHS = 0, INFES = 2000 ****)
+     
+equalconts(0,Semi-skilled)..  x(0,Semi-skilled) =E= 1500 ; (LHS = 0, INFES = 1500 ****)
+     
+equalconts(0,Skilled)..  x(0,Skilled) =E= 1000 ; (LHS = 0, INFES = 1000 ****)
+     
+REMAINING 9 ENTRIES SKIPPED
+
+
+---- test  =E=  test_variables
+
+test..  - x(0,Unskilled) - x(0,Semi-skilled) - x(0,Skilled) - x(1,Unskilled) - x(1,Semi-skilled) - x(1,Skilled) - x(2,Unskilled) - x(2,Semi-skilled) - x(2,Skilled) - x(3,Unskilled) - x(3,Semi-skilled) - x(3,Skilled) + z =E= 0 ; (LHS = 0)
+     
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE testmodel Using LP From line 29
+
+
+---- x  it is equal to parameters for testing
+
+x(0,Unskilled)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       equalconts(0,Unskilled)
+       -1       test
+
+x(0,Semi-skilled)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       equalconts(0,Semi-skilled)
+       -1       test
+
+x(0,Skilled)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       equalconts(0,Skilled)
+       -1       test
+
+REMAINING 9 ENTRIES SKIPPED
+
+---- z  sum of x values
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       test
+
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE testmodel Using LP From line 29
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 5.000E+02, 2.500E+03] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA]
+Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
+
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE testmodel Using LP From line 29
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS           13
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           13
+NON ZERO ELEMENTS            25
+
+
+GENERATION TIME      =        0.000 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE testmodel Using LP From line 29
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   testmodel           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  29
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE            16400.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Optimal solution found
+Objective:        16400.000000
+
+
+---- EQU equalconts  just make those two equal
+
+                      LOWER          LEVEL          UPPER         MARGINAL
+
+0.Unskilled         2000.0000      2000.0000      2000.0000         1.0000      
+0.Semi-skilled      1500.0000      1500.0000      1500.0000         1.0000      
+0.Skilled           1000.0000      1000.0000      1000.0000         1.0000      
+1.Unskilled         1000.0000      1000.0000      1000.0000         1.0000      
+1.Semi-skilled      1400.0000      1400.0000      1400.0000         1.0000      
+1.Skilled           1000.0000      1000.0000      1000.0000         1.0000      
+2.Unskilled          500.0000       500.0000       500.0000         1.0000      
+2.Semi-skilled      2000.0000      2000.0000      2000.0000         1.0000      
+2.Skilled           1500.0000      1500.0000      1500.0000         1.0000      
+3.Unskilled             .              .              .             1.0000      
+3.Semi-skilled      2500.0000      2500.0000      2500.0000         1.0000      
+3.Skilled           2000.0000      2000.0000      2000.0000         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU test                .              .              .             1.0000      
+
+  test  test_variables
+
+---- VAR x  it is equal to parameters for testing
+
+                      LOWER          LEVEL          UPPER         MARGINAL
+
+0.Unskilled           -INF         2000.0000        +INF             .          
+0.Semi-skilled        -INF         1500.0000        +INF             .          
+0.Skilled             -INF         1000.0000        +INF             .          
+1.Unskilled           -INF         1000.0000        +INF             .          
+1.Semi-skilled        -INF         1400.0000        +INF             .          
+1.Skilled             -INF         1000.0000        +INF             .          
+2.Unskilled           -INF          500.0000        +INF             .          
+2.Semi-skilled        -INF         2000.0000        +INF             .          
+2.Skilled             -INF         1500.0000        +INF             .          
+3.Unskilled           -INF             .            +INF             .          
+3.Semi-skilled        -INF         2500.0000        +INF             .          
+3.Skilled             -INF         2000.0000        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF        16400.0000        +INF             .          
+
+  z  sum of x values
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 11:10:10 Page 8
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     30 VARIABLE x.L  it is equal to parameters for testing
+
+    Unskilled  Semi-skil~     Skilled
+
+0    2000.000    1500.000    1000.000
+1    1000.000    1400.000    1000.000
+2     500.000    2000.000    1500.000
+3                2500.000    2000.000
+
+
+
+EXECUTION TIME       =        0.016 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
 
 
 USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
