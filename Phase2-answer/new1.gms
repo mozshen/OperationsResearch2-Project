@@ -217,7 +217,7 @@ parttime_costs.. parttimecost=e= sum((t, s), parttime_cost(s)* P(t, s));
 layoff_costs.. layoffcost=e= sum((t, s), layoff_cost(s)* L(t, s));
 
 * overhire
-overhire_costs.. overhiringcost=e= sum(t, Train(t, 'Unskilled', 'Semi-skilled'));
+overhire_costs.. overhiringcost=e= sum((t, s), over_hiring_cost(s)* O(t, s));
 
 * lay off objective for the first part
 layoff.. Z_first=e= sum((t, s), L(t, s));
@@ -245,7 +245,13 @@ model testmodel /
     Hiring_constraint_part,
     Hiring_constraint_over,
     layoff_constraint,
-       
+    
+    training_costs
+    parttime_costs
+    layoff_costs
+    overhire_costs
+    cost
+    
     layoff
     
 /
@@ -289,19 +295,17 @@ display Demote.l;
 P.l(t, s)$ (P.l(t, s) eq 0)= eps;
 display P.l;
 
-trainincost$ (trainincost eq 0)= eps;
-display trainincost
+display trainincost.l;
+display parttimecost.l;
+display layoffcost.l;
+display overhiringcost.l;
+display z_second.l;
 
-parttimecost$ (parttimecost eq 0)= eps;
-display parttimecost
-
-layoffcost$ (layoffcost eq 0)= eps;
-display layoffcost
-
-overhiringcost$ (overhiringcost eq 0)= eps;
-display overhiringcost
-
-execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
+execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l,
+                                     Train.l, Demote.l,
+                                     trainincost.l, parttimecost.l, layoffcost.l, overhiringcost.l
+                                     z_second.l;
+                                    
 execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';
 execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8';
 execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=p.l rng=Results!B14';
@@ -310,6 +314,12 @@ execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=O.l rng=Results!B26';
 execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Train.l rng=Results!B32';
 execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Demote.l rng=Results!B50';
 
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=trainincost.l rng=Results!B65';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=parttimecost.l rng=Results!B67';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=layoffcost.l rng=Results!B69';
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=overhiringcost.l rng=Results!B71';
+
+execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=z_second.l rng=Results!B73';
 
 
 
