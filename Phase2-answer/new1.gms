@@ -44,6 +44,12 @@ $gdxin Pahse2_Data_OR2.gdx
 $load training_theshold
 ;
 
+Parameter layoff_cost(s)
+$call gdxxrw.exe Pahse2_Data_OR2.xlsx par=layoff_cost rng=L!C2:E3 cdim=1
+$gdxin Pahse2_Data_OR2.gdx
+$load layoff_cost
+;
+
 Parameter over_hiring_cost(s)
 $call gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
 $gdxin Pahse2_Data_OR2.gdx
@@ -81,6 +87,11 @@ Demote(t, s, s) demoting from skill s1 to skill s2 at year t
 W(t ,s) workforce for skill s at year t
 
 Z_first total lay offs at all years for all skills
+
+trainincost cost for training
+parttimecost cost for assigning workers to parttime work
+layoffcost cost for laying off
+overhiringcost cost hire more than limit
 Z_second total cost
 ;
 
@@ -93,6 +104,11 @@ integer variable Train;
 integer variable Demote;
 
 integer variable W;
+
+Positive Variable trainincost;
+Positive Variable parttimecost;
+Positive Variable layoffcost;
+Positive Variable overhiringcost;
 
 Equations
 
@@ -115,12 +131,16 @@ training_constraint_unskilled_workforce(t, s, s) workforce limit for training fr
 training_constraint_semiskilled_limit(t, s, s) training limit for training from semiskilled to skilled at year t (1.4.5)
 training_constraint_semiskilled_workforce(t, s, s) workforce limit for training from semiskilled to skilled at year t (1.4.5)
 
-
 demote_constraint_semiskilled(t, s, s) limit for demote from semiskikk at year t (1.4.6)
 demote_constraint_skilled(t, s, s) limit for demote from skilled at year t (1.4.6)
 
+training_costs cost of training
+parttime_costs cost of parttime
+layoff_costs cost of layoff
+overhire_costs cost of overhire
+
 layoff objective function of the first part
-* Cost objective function of the second part
+Cost objective function of the second part
 ;
 
 * workforce
@@ -186,10 +206,24 @@ training_constraint_semiskilled_workforce(t, s, s).. Train(t, 'Semi-skilled', 'S
 demote_constraint_semiskilled(t, s, s).. Demote(t, 'Semi-skilled', 'Unskilled')=l= W(t, 'Semi-skilled');
 demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demote(t, 'Skilled', 'Unskilled')=l= W(t, 'Skilled');
 
+* defining costs
+* training
+training_costs.. trainincost=e= sum(t, Train(t, 'Unskilled', 'Semi-skilled'));
 
+*parttime
+parttime_costs.. parttimecost=e= sum((t, s), parttime_cost(s)* P(t, s));
 
-* lay off ogjective for the first part
+* layoff
+layoff_costs.. layoffcost=e= sum((t, s), layoff_cost(s)* L(t, s));
+
+* overhire
+overhire_costs.. overhiringcost=e= sum(t, Train(t, 'Unskilled', 'Semi-skilled'));
+
+* lay off objective for the first part
 layoff.. Z_first=e= sum((t, s), L(t, s));
+
+* total cost
+cost.. z_second=e= trainincost+ parttimecost+ layoffcost+ overhiringcost
 
 model testmodel /
     
@@ -221,11 +255,17 @@ solve testmodel using mip minimizing Z_first;
 
 display demand_table;
 display churn_table;
+
 display hiring_limit;
+
 display training_limit;
 display training_theshold;
+
 display overhiring_limit;
 display parttime_limit;
+
+display over_hiring_cost;
+display parttime_cost;
 
 
 W.l(t, s)$ (W.l(t, s) eq 0)= eps;
@@ -248,6 +288,18 @@ display Demote.l;
 
 P.l(t, s)$ (P.l(t, s) eq 0)= eps;
 display P.l;
+
+trainincost$ (trainincost eq 0)= eps;
+display trainincost
+
+parttimecost$ (parttimecost eq 0)= eps;
+display parttimecost
+
+layoffcost$ (layoffcost eq 0)= eps;
+display layoffcost
+
+overhiringcost$ (overhiringcost eq 0)= eps;
+display overhiringcost
 
 execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
 execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';

@@ -1,4 +1,4 @@
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 1
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -44,220 +44,259 @@ GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answ
 --- LOAD  training_theshold = 1:training_theshold
   45  ;
   46   
-  47  Parameter over_hiring_cost(s)
+  47  Parameter layoff_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- LOAD  over_hiring_cost = 1:over_hiring_cost
+--- LOAD  layoff_cost = 1:layoff_cost
   51  ;
   52   
-  53  Parameter overhiring_limit(param)
+  53  Parameter over_hiring_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- LOAD  overhiring_limit = 1:overhiring_limit
+--- LOAD  over_hiring_cost = 1:over_hiring_cost
   57  ;
   58   
-  59  Parameter parttime_cost(s)
+  59  Parameter overhiring_limit(param)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- LOAD  parttime_cost = 1:parttime_cost
+--- LOAD  overhiring_limit = 1:overhiring_limit
   63  ;
   64   
-  65  Parameter parttime_limit(param)
+  65  Parameter parttime_cost(s)
 GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
---- LOAD  parttime_limit = 1:parttime_limit
+--- LOAD  parttime_cost = 1:parttime_cost
   69  ;
   70   
-  71  variables
-  72  H(t, s) hiring for skill s at year t
-  73   
-  74  P(t, s) parttime for skill s at year t
-  75  L(t, s) lay off for skill s at year t
-  76  O(t, s) over-hire for skill s at year t
-  77   
-  78  Train(t, s, s) training from skill s1 to skill s2 at year t
-  79  Demote(t, s, s) demoting from skill s1 to skill s2 at year t
-  80   
-  81  W(t ,s) workforce for skill s at year t
-  82   
-  83  Z_first total lay offs at all years for all skills
-  84  Z_second total cost
-  85  ;
+  71  Parameter parttime_limit(param)
+GDXIN   D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+--- LOAD  parttime_limit = 1:parttime_limit
+  75  ;
+  76   
+  77  variables
+  78  H(t, s) hiring for skill s at year t
+  79   
+  80  P(t, s) parttime for skill s at year t
+  81  L(t, s) lay off for skill s at year t
+  82  O(t, s) over-hire for skill s at year t
+  83   
+  84  Train(t, s, s) training from skill s1 to skill s2 at year t
+  85  Demote(t, s, s) demoting from skill s1 to skill s2 at year t
   86   
-  87  integer variable H;
-  88  integer variable P;
-  89  integer variable L;
-  90  integer variable O;
-  91   
-  92  integer variable Train;
-  93  integer variable Demote;
-  94   
-  95  integer variable W;
-  96   
-  97  Equations
-  98   
-  99  Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
- 100  Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
- 101   
- 102  State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
- 103  State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
- 104  State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
+  87  W(t ,s) workforce for skill s at year t
+  88   
+  89  Z_first total lay offs at all years for all skills
+  90   
+  91  trainincost cost for training
+  92  parttimecost cost for assigning workers to parttime work
+  93  layoffcost cost for laying off
+  94  overhiringcost cost hire more than limit
+  95  Z_second total cost
+  96  ;
+  97   
+  98  integer variable H;
+  99  integer variable P;
+ 100  integer variable L;
+ 101  integer variable O;
+ 102   
+ 103  integer variable Train;
+ 104  integer variable Demote;
  105   
- 106  Hiring_constraint_normal(t, s) limit for hiring for skill s at year t (1.4.3)
- 107  Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
- 108  Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
- 109   
- 110  layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
- 111   
- 112  training_constraint_unskilled_limit(t, s, s) training limit for training from unslikked to semi-skilled at year t (1.4.5)
- 113  training_constraint_unskilled_workforce(t, s, s) workforce limit for training from unslikked to semi-skilled at year t (1.4.5)
+ 106  integer variable W;
+ 107   
+ 108  Positive Variable trainincost;
+ 109  Positive Variable parttimecost;
+ 110  Positive Variable layoffcost;
+ 111  Positive Variable overhiringcost;
+ 112   
+ 113  Equations
  114   
- 115  training_constraint_semiskilled_limit(t, s, s) training limit for training from semiskilled to skilled at year t (1.4.5)
- 116  training_constraint_semiskilled_workforce(t, s, s) workforce limit for training from semiskilled to skilled at year t (1.4.5)
+ 115  Workforce_constraint(t, s) limit for workforce for skill s at year t (1.4.1)
+ 116  Workforce_given(t, s) limit for given workforce for skill s at year 0 (1.4.1)
  117   
- 118   
- 119  demote_constraint_semiskilled(t, s, s) limit for demote from semiskikk at year t (1.4.6)
- 120  demote_constraint_skilled(t, s, s) limit for demote from skilled at year t (1.4.6)
+ 118  State_variable_unskilled(t, s) state of workforce for skill s at year t (1.4.2)
+ 119  State_variable_semiskilled(t, s) state of workforce for skill s at year t (1.4.2)
+ 120  State_variable_skilled(t, s) state of workforce for skill s at year t (1.4.2)
  121   
- 122  layoff objective function of the first part
- 123  * Cost objective function of the second part
- 124  ;
+ 122  Hiring_constraint_normal(t, s) limit for hiring for skill s at year t (1.4.3)
+ 123  Hiring_constraint_over(t) limit for pver hiring at year t (1.4.3)
+ 124  Hiring_constraint_part(t) limit for part time hiring at year t (1.4.3)
  125   
- 126  * workforce
- 127  * for years 1 to 3 we should have the requested workforce
- 128  Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
- 129   
- 130  * for year 0 the workforce is given so we use the equal
- 131  Workforce_given(t, s) .. W('0', s) =e= demand_table('0', s);
- 132   
+ 126  layoff_constraint(t, s) limit for layoff for skill s at year t (1.4.4)
+ 127   
+ 128  training_constraint_unskilled_limit(t, s, s) training limit for training from unslikked to semi-skilled at year t (1.4.5)
+ 129  training_constraint_unskilled_workforce(t, s, s) workforce limit for training from unslikked to semi-skilled at year t (1.4.5)
+ 130   
+ 131  training_constraint_semiskilled_limit(t, s, s) training limit for training from semiskilled to skilled at year t (1.4.5)
+ 132  training_constraint_semiskilled_workforce(t, s, s) workforce limit for training from semiskilled to skilled at year t (1.4.5)
  133   
- 134  * state variebles
- 135  * we need to define these for t>0
- 136  *unskilled workers
- 137  State_variable_unskilled(t, 'Unskilled')$(d(t)).. W(t, 'Unskilled')=e=
- 138      (
- 139      W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
- 140      -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled'))]
- 141      +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
- 142      )
- 143  ;
- 144   
- 145  * semiskilled workers
- 146  State_variable_semiskilled(t, 'Semi-skilled')$(d(t)).. W(t, 'Semi-skilled')=e=
- 147      (
- 148      W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
- 149      -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Semi-skilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled'))]
- 150      +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
- 151      )
- 152  ;
+ 134  demote_constraint_semiskilled(t, s, s) limit for demote from semiskikk at year t (1.4.6)
+ 135  demote_constraint_skilled(t, s, s) limit for demote from skilled at year t (1.4.6)
+ 136   
+ 137  training_costs cost of training
+ 138  parttime_costs cost of parttime
+ 139  layoff_costs cost of layoff
+ 140  overhire_costs cost of overhire
+ 141   
+ 142  layoff objective function of the first part
+ 143  Cost objective function of the second part
+ 144  ;
+ 145   
+ 146  * workforce
+ 147  * for years 1 to 3 we should have the requested workforce
+ 148  Workforce_constraint(t, s) .. W(t, s)- 0.5* P(t, s) =g= demand_table(t, s)$(d(t));
+ 149   
+ 150  * for year 0 the workforce is given so we use the equal
+ 151  Workforce_given(t, s) .. W('0', s) =e= demand_table('0', s);
+ 152   
  153   
- 154  * skilled workers
- 155  State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')$(d(t))=e=
- 156      (
- 157      W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
- 158      -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
- 159      +[-Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
- 160      )
- 161  ;
- 162   
- 163  * hiring constraint
- 164  * normal
- 165  Hiring_constraint_normal(t, s).. H(t, s)=l= hiring_limit(s);
- 166   
- 167  * over
- 168  Hiring_constraint_over(t).. sum(s, O(t, s))=l= overhiring_limit('fixed');
- 169   
- 170  * part
- 171  Hiring_constraint_part(t).. sum(s, P(t, s))=l= parttime_limit('fixed');
- 172   
- 173  * lay off constraint
- 174  layoff_constraint(t, s).. L(t, s)=l= W(t, s);
- 175   
- 176   
- 177   
- 178  * Training constraints
- 179  training_constraint_unskilled_limit(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= training_limit('fixed');
- 180  training_constraint_unskilled_workforce(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= W(t, 'Unskilled');
- 181   
- 182  training_constraint_semiskilled_limit(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= training_theshold('fixed')* W(t, 'Skilled');
- 183  training_constraint_semiskilled_workforce(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= W(t, 'Semi-skilled')+ Train(t, 'Unskilled', 'Semi-skilled');
- 184   
- 185  * demotion constraints
- 186  demote_constraint_semiskilled(t, s, s).. Demote(t, 'Semi-skilled', 'Unskilled')=l= W(t, 'Semi-skilled');
- 187  demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demote(t, 'Skilled', 'Unskilled')=l= W(t, 'Skilled');
- 188   
+ 154  * state variebles
+ 155  * we need to define these for t>0
+ 156  *unskilled workers
+ 157  State_variable_unskilled(t, 'Unskilled')$(d(t)).. W(t, 'Unskilled')=e=
+ 158      (
+ 159      W(t-1, 'Unskilled')+ [H(t-1, 'Unskilled')+ O(t-1, 'Unskilled')]
+ 160      -[L(t-1, 'Unskilled')+ 0.01* churn_table('New', 'Unskilled')* (H(t-1, 'Unskilled')+ O(t-1, 'Unskilled'))+ 0.01* churn_table('Experienced', 'Unskilled')* (W(t-1, 'Unskilled'))]
+ 161      +[0.5*Demote(t-1, 'Semi-skilled', 'Unskilled')+ 0.5*Demote(t-1, 'Skilled', 'Unskilled')- Train(t-1, 'Unskilled', 'Semi-skilled')]
+ 162      )
+ 163  ;
+ 164   
+ 165  * semiskilled workers
+ 166  State_variable_semiskilled(t, 'Semi-skilled')$(d(t)).. W(t, 'Semi-skilled')=e=
+ 167      (
+ 168      W(t-1, 'Semi-skilled')+ [H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled')]
+ 169      -[L(t-1, 'Semi-skilled')+ 0.01* churn_table('New', 'Semi-skilled')* (H(t-1, 'Semi-skilled')+ O(t-1, 'Semi-skilled'))+ 0.01* churn_table('Experienced', 'Semi-skilled')* (W(t-1, 'Semi-skilled'))]
+ 170      +[0.5*Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Semi-skilled', 'Unskilled')+ Train(t-1, 'Unskilled', 'Semi-skilled')- Train(t-1, 'Semi-skilled', 'Skilled')]
+ 171      )
+ 172  ;
+ 173   
+ 174  * skilled workers
+ 175  State_variable_skilled(t, 'Skilled').. W(t, 'Skilled')$(d(t))=e=
+ 176      (
+ 177      W(t-1, 'Skilled')+ [H(t-1, 'Skilled')+ O(t-1, 'Skilled')]
+ 178      -[L(t-1, 'Skilled')+ 0.01* churn_table('New', 'Skilled')* (H(t-1, 'Skilled')+ O(t-1, 'Skilled'))+ 0.01* churn_table('Experienced', 'Skilled')* (W(t-1, 'Skilled'))]
+ 179      +[-Demote(t-1, 'Skilled', 'Semi-skilled')- Demote(t-1, 'Skilled', 'Unskilled')+ Train(t-1, 'Semi-skilled', 'Skilled')]
+ 180      )
+ 181  ;
+ 182   
+ 183  * hiring constraint
+ 184  * normal
+ 185  Hiring_constraint_normal(t, s).. H(t, s)=l= hiring_limit(s);
+ 186   
+ 187  * over
+ 188  Hiring_constraint_over(t).. sum(s, O(t, s))=l= overhiring_limit('fixed');
  189   
- 190   
- 191  * lay off ogjective for the first part
- 192  layoff.. Z_first=e= sum((t, s), L(t, s));
- 193   
- 194  model testmodel /
+ 190  * part
+ 191  Hiring_constraint_part(t).. sum(s, P(t, s))=l= parttime_limit('fixed');
+ 192   
+ 193  * lay off constraint
+ 194  layoff_constraint(t, s).. L(t, s)=l= W(t, s);
  195   
- 196      Workforce_given,
- 197      Workforce_constraint,
- 198   
- 199      State_variable_unskilled,
- 200      State_variable_semiskilled,
- 201      State_variable_skilled,
- 202   
- 203      demote_constraint_semiskilled,
- 204      demote_constraint_skilled,
- 205      training_constraint_semiskilled_limit,
- 206      training_constraint_semiskilled_workforce,
- 207      training_constraint_unskilled_limit,
- 208      training_constraint_unskilled_workforce,
- 209   
- 210      Hiring_constraint_normal,
- 211      Hiring_constraint_part,
- 212      Hiring_constraint_over,
- 213      layoff_constraint,
- 214   
- 215      layoff
- 216   
- 217  /
- 218  ;
- 219   
- 220  solve testmodel using mip minimizing Z_first;
+ 196   
+ 197   
+ 198  * Training constraints
+ 199  training_constraint_unskilled_limit(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= training_limit('fixed');
+ 200  training_constraint_unskilled_workforce(t, s, s).. Train(t, 'Unskilled', 'Semi-skilled')=l= W(t, 'Unskilled');
+ 201   
+ 202  training_constraint_semiskilled_limit(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= training_theshold('fixed')* W(t, 'Skilled');
+ 203  training_constraint_semiskilled_workforce(t, s, s).. Train(t, 'Semi-skilled', 'Skilled')=l= W(t, 'Semi-skilled')+ Train(t, 'Unskilled', 'Semi-skilled');
+ 204   
+ 205  * demotion constraints
+ 206  demote_constraint_semiskilled(t, s, s).. Demote(t, 'Semi-skilled', 'Unskilled')=l= W(t, 'Semi-skilled');
+ 207  demote_constraint_skilled(t, s, s).. Demote(t, 'Skilled', 'Semi-skilled')+ Demote(t, 'Skilled', 'Unskilled')=l= W(t, 'Skilled');
+ 208   
+ 209  * defining costs
+ 210  * training
+ 211  training_costs.. trainincost=e= sum(t, Train(t, 'Unskilled', 'Semi-skilled'));
+ 212   
+ 213  *parttime
+ 214  parttime_costs.. parttimecost=e= sum((t, s), parttime_cost(s)* P(t, s));
+ 215   
+ 216  * layoff
+ 217  layoff_costs.. layoffcost=e= sum((t, s), layoff_cost(s)* L(t, s));
+ 218   
+ 219  * overhire
+ 220  overhire_costs.. overhiringcost=e= sum(t, Train(t, 'Unskilled', 'Semi-skilled'));
  221   
- 222  display demand_table;
- 223  display churn_table;
- 224  display hiring_limit;
- 225  display training_limit;
- 226  display training_theshold;
- 227  display overhiring_limit;
- 228  display parttime_limit;
+ 222  * lay off objective for the first part
+ 223  layoff.. Z_first=e= sum((t, s), L(t, s));
+ 224   
+ 225  * total cost
+ 226  cost.. z_second=e= trainincost+ parttimecost+ layoffcost+ overhiringcost
+ 227   
+ 228  model testmodel /
  229   
- 230   
- 231  W.l(t, s)$ (W.l(t, s) eq 0)= eps;
- 232  display W.l;
- 233   
- 234  H.l(t, s)$ (H.l(t, s) eq 0)= eps;
- 235  display H.l;
+ 230      Workforce_given,
+ 231      Workforce_constraint,
+ 232   
+ 233      State_variable_unskilled,
+ 234      State_variable_semiskilled,
+ 235      State_variable_skilled,
  236   
- 237  O.l(t, s)$ (O.l(t, s) eq 0)= eps;
- 238  display O.l;
- 239   
- 240  L.l(t, s)$ (L.l(t, s) eq 0)= eps
- 241  display L.l;
- 242   
- 243  Train.l(t, s, s)$ (Train.l(t, s, s) eq 0)= eps;
- 244  display Train.l;
- 245   
- 246  Demote.l(t, s, s)$ (Demote.l(t, s, s) eq 0)= eps;
- 247  display Demote.l;
+ 237      demote_constraint_semiskilled,
+ 238      demote_constraint_skilled,
+ 239      training_constraint_semiskilled_limit,
+ 240      training_constraint_semiskilled_workforce,
+ 241      training_constraint_unskilled_limit,
+ 242      training_constraint_unskilled_workforce,
+ 243   
+ 244      Hiring_constraint_normal,
+ 245      Hiring_constraint_part,
+ 246      Hiring_constraint_over,
+ 247      layoff_constraint,
  248   
- 249  P.l(t, s)$ (P.l(t, s) eq 0)= eps;
- 250  display P.l;
- 251   
- 252  execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
- 253  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';
- 254  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8';
- 255  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=p.l rng=Results!B14';
- 256  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=L.l rng=Results!B20';
- 257  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=O.l rng=Results!B26';
- 258  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Train.l rng=Results!B32';
- 259  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Demote.l rng=Results!B50';
+ 249      layoff
+ 250   
+ 251  /
+ 252  ;
+ 253   
+ 254  solve testmodel using mip minimizing Z_first;
+ 255   
+ 256  display demand_table;
+ 257  display churn_table;
+ 258   
+ 259  display hiring_limit;
  260   
- 261   
- 262   
+ 261  display training_limit;
+ 262  display training_theshold;
  263   
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 2
+ 264  display overhiring_limit;
+ 265  display parttime_limit;
+ 266   
+ 267  display over_hiring_cost;
+ 268  display parttime_cost;
+ 269   
+ 270   
+ 271  W.l(t, s)$ (W.l(t, s) eq 0)= eps;
+ 272  display W.l;
+ 273   
+ 274  H.l(t, s)$ (H.l(t, s) eq 0)= eps;
+ 275  display H.l;
+ 276   
+ 277  O.l(t, s)$ (O.l(t, s) eq 0)= eps;
+ 278  display O.l;
+ 279   
+ 280  L.l(t, s)$ (L.l(t, s) eq 0)= eps
+ 281  display L.l;
+ 282   
+ 283  Train.l(t, s, s)$ (Train.l(t, s, s) eq 0)= eps;
+ 284  display Train.l;
+ 285   
+ 286  Demote.l(t, s, s)$ (Demote.l(t, s, s) eq 0)= eps;
+ 287  display Demote.l;
+ 288   
+ 289  P.l(t, s)$ (P.l(t, s) eq 0)= eps;
+ 290  display P.l;
+ 291   
+ 292  execute_unload "Pahse2_Data_OR2.gdx" W.l, H.l, p.l, L.l, O.l, Train.l, Demote.l;
+ 293  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=W.l rng=Results!B2';
+ 294  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=H.l rng=Results!B8';
+ 295  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=p.l rng=Results!B14';
+ 296  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=L.l rng=Results!B20';
+ 297  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=O.l rng=Results!B26';
+ 298  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Train.l rng=Results!B32';
+ 299  execute 'gdxxrw.exe Pahse2_Data_OR2.gdx var=Demote.l rng=Results!B50';
+ 300   
+ 301   
+ 302   
+ 303   
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Include File Summary
 
@@ -275,20 +314,22 @@ Include File Summary
      9       37 GDXIN          1      37  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
     10       42 CALL           1      42  gdxxrw.exe Pahse2_Data_OR2.xlsx par=training_theshold rng=T!D7 cdim=1
     11       43 GDXIN          1      43  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    12       48 CALL           1      48  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
+    12       48 CALL           1      48  gdxxrw.exe Pahse2_Data_OR2.xlsx par=layoff_cost rng=L!C2:E3 cdim=1
     13       49 GDXIN          1      49  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    14       54 CALL           1      54  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!B5 cdim=1
+    14       54 CALL           1      54  gdxxrw.exe Pahse2_Data_OR2.xlsx par=over_hiring_cost rng=O!C2:E3 cdim=1
     15       55 GDXIN          1      55  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    16       60 CALL           1      60  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
+    16       60 CALL           1      60  gdxxrw.exe Pahse2_Data_OR2.xlsx par=overhiring_limit rng=O!B5 cdim=1
     17       61 GDXIN          1      61  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
-    18       66 CALL           1      66  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!B5 cdim=1
+    18       66 CALL           1      66  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_cost rng=S!C2:E3 cdim=1
     19       67 GDXIN          1      67  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
+    20       72 CALL           1      72  gdxxrw.exe Pahse2_Data_OR2.xlsx par=parttime_limit rng=S!B5 cdim=1
+    21       73 GDXIN          1      73  D:\University\Semester 7\Operation Research 2\Project\Answer\Phase2-answer\Pahse2_Data_OR2.gdx
 
 
-COMPILATION TIME     =        5.203 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 3
+COMPILATION TIME     =        5.922 SECONDS      3 MB  42.1.0 cb854401 WEX-WEI
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Equation Listing    SOLVE testmodel Using MIP From line 220
+Equation Listing    SOLVE testmodel Using MIP From line 254
 
 
 ---- Workforce_given  =E=  limit for given workforce for skill s at year 0 (1.4.1)
@@ -454,9 +495,9 @@ REMAINING 9 ENTRIES SKIPPED
 
 layoff..  - L(0,Unskilled) - L(0,Semi-skilled) - L(0,Skilled) - L(1,Unskilled) - L(1,Semi-skilled) - L(1,Skilled) - L(2,Unskilled) - L(2,Semi-skilled) - L(2,Skilled) - L(3,Unskilled) - L(3,Semi-skilled) - L(3,Skilled) + Z_first =E= 0 ; (LHS = 0)
      
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 4
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Column Listing      SOLVE testmodel Using MIP From line 220
+Column Listing      SOLVE testmodel Using MIP From line 254
 
 
 ---- H  hiring for skill s at year t
@@ -664,9 +705,9 @@ Z_first
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       layoff
 
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 5
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Range Statistics    SOLVE testmodel Using MIP From line 220
+Range Statistics    SOLVE testmodel Using MIP From line 254
 
 
 RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
@@ -675,9 +716,9 @@ RHS       [min, max] : [ 5.000E+01, 2.500E+03] - Zero values observed as well
 Bound     [min, max] : [        NA,        NA] - Zero values observed as well
 Matrix    [min, max] : [ 2.500E-01, 1.000E+00]
 
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 6
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Model Statistics    SOLVE testmodel Using MIP From line 220
+Model Statistics    SOLVE testmodel Using MIP From line 254
 
 
 MODEL STATISTICS
@@ -688,22 +729,22 @@ NON ZERO ELEMENTS           340     DISCRETE VARIABLES         80
 
 
 GENERATION TIME      =        0.000 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 7
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Solution Report     SOLVE testmodel Using MIP From line 220
+Solution Report     SOLVE testmodel Using MIP From line 254
 
 
                S O L V E      S U M M A R Y
 
      MODEL   testmodel           OBJECTIVE  Z_first
      TYPE    MIP                 DIRECTION  MINIMIZE
-     SOLVER  CPLEX               FROM LINE  220
+     SOLVER  CPLEX               FROM LINE  254
 
 **** SOLVER STATUS     1 Normal Completion
 **** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE                0.0000
 
- RESOURCE USAGE, LIMIT          0.594 10000000000.000
+ RESOURCE USAGE, LIMIT          0.109 10000000000.000
  ITERATION COUNT, LIMIT      2993    2147483647
 --- *** This solver runs with a demo license. No commercial use.
 --- GMO setup time: 0.00s
@@ -714,13 +755,13 @@ Solution Report     SOLVE testmodel Using MIP From line 220
 
 
 --- MIP status (101): integer optimal solution.
---- Cplex Time: 0.55sec (det. 57.01 ticks)
+--- Cplex Time: 0.11sec (det. 57.01 ticks)
 
 --- Fixing integer variables and solving final LP...
 
 
 --- Fixed MIP status (1): optimal.
---- Cplex Time: 0.02sec (det. 0.10 ticks)
+--- Cplex Time: 0.00sec (det. 0.10 ticks)
 
 
 Proven optimal solution
@@ -1075,12 +1116,12 @@ Relative gap:            0.000000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:15:18 Page 8
+GAMS 42.1.0  cb854401 Feb 1, 2023           WEX-WEI x86 64bit/MS Windows - 02/04/23 22:55:47 Page 8
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
 
-----    222 PARAMETER demand_table  
+----    256 PARAMETER demand_table  
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1090,7 +1131,7 @@ E x e c u t i o n
 3                2500.000    2000.000
 
 
-----    223 PARAMETER churn_table  
+----    257 PARAMETER churn_table  
 
               Unskilled  Semi-skil~     Skilled
 
@@ -1098,32 +1139,42 @@ New              25.000      20.000      10.000
 Experienced      10.000       5.000       5.000
 
 
-----    224 PARAMETER hiring_limit  
+----    259 PARAMETER hiring_limit  
 
 Unskilled    500.000,    Semi-skilled 800.000,    Skilled      500.000
 
 
-----    225 PARAMETER training_limit  
+----    261 PARAMETER training_limit  
 
 fixed 200.000
 
 
-----    226 PARAMETER training_theshold  
+----    262 PARAMETER training_theshold  
 
 fixed 0.250
 
 
-----    227 PARAMETER overhiring_limit  
+----    264 PARAMETER overhiring_limit  
 
 fixed 150.000
 
 
-----    228 PARAMETER parttime_limit  
+----    265 PARAMETER parttime_limit  
 
 fixed 50.000
 
 
-----    232 VARIABLE W.L  workforce for skill s at year t
+----    267 PARAMETER over_hiring_cost  
+
+Unskilled    1500.000,    Semi-skilled 2000.000,    Skilled      3000.000
+
+
+----    268 PARAMETER parttime_cost  
+
+Unskilled    500.000,    Semi-skilled 400.000,    Skilled      400.000
+
+
+----    272 VARIABLE W.L  workforce for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1133,7 +1184,7 @@ fixed 50.000
 3    1230.000    2540.000    2001.000
 
 
-----    235 VARIABLE H.L  hiring for skill s at year t
+----    275 VARIABLE H.L  hiring for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1143,7 +1194,7 @@ fixed 50.000
 3         EPS         EPS         EPS
 
 
-----    238 VARIABLE O.L  over-hire for skill s at year t
+----    278 VARIABLE O.L  over-hire for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1153,7 +1204,7 @@ fixed 50.000
 3         EPS         EPS         EPS
 
 
-----    241 VARIABLE L.L  lay off for skill s at year t
+----    281 VARIABLE L.L  lay off for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1163,7 +1214,7 @@ fixed 50.000
 3         EPS         EPS         EPS
 
 
-----    244 VARIABLE Train.L  training from skill s1 to skill s2 at year t
+----    284 VARIABLE Train.L  training from skill s1 to skill s2 at year t
 
                  Unskilled  Semi-skil~     Skilled
 
@@ -1181,7 +1232,7 @@ fixed 50.000
 3.Skilled                                      EPS
 
 
-----    247 VARIABLE Demote.L  demoting from skill s1 to skill s2 at year t
+----    287 VARIABLE Demote.L  demoting from skill s1 to skill s2 at year t
 
                  Unskilled  Semi-skil~     Skilled
 
@@ -1199,7 +1250,7 @@ fixed 50.000
 3.Skilled                                      EPS
 
 
-----    250 VARIABLE P.L  parttime for skill s at year t
+----    290 VARIABLE P.L  parttime for skill s at year t
 
     Unskilled  Semi-skil~     Skilled
 
@@ -1210,7 +1261,7 @@ fixed 50.000
 
 
 
-EXECUTION TIME       =        7.062 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
+EXECUTION TIME       =        6.266 SECONDS      4 MB  42.1.0 cb854401 WEX-WEI
 
 
 USER: GAMS Demo license for Mohsen Hosseini          G230203|0002CO-GEN
